@@ -2,7 +2,7 @@
     "name": "errcode/framework",
     "description": "The ErrCode Framework",
     "type": "framework",
-    "version": "0.0.2",
+    "version": "0.0.*@dev",
     "license": "MIT",
     "authors": [
         {
