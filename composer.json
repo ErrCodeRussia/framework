@@ -2,7 +2,6 @@
     "name": "errcode/framework",
     "description": "The ErrCode Framework",
     "type": "framework",
-    "version": "0.0.*@dev",
     "license": "MIT",
     "authors": [
         {
@@ -10,7 +9,7 @@
             "email": "ozpavel@yandex.ru"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
 
     }
