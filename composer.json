@@ -2,6 +2,8 @@
     "name": "errcode/framework",
     "description": "The ErrCode Framework",
     "type": "framework",
+    "version": "0.0.2",
+    "license": "MIT",
     "authors": [
         {
             "name": "Pavel Sklyar",
