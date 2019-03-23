@@ -1,0 +1,15 @@
+{
+    "name": "errcode/framework",
+    "description": "The ErrCode Framework",
+    "type": "framework",
+    "authors": [
+        {
+            "name": "Pavel Sklyar",
+            "email": "ozpavel@yandex.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+      "php": ">=7.1.3"
+    }
+}
