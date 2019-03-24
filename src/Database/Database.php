@@ -10,10 +10,18 @@ class Database
         'database' => ''
     );
 
-    public function __construct()
+    public function __construct($data)
     {
-        if (file_exists(CONFIG . '.ini')) {
-            $config = parse_ini_file(CONFIG . ".ini", true);
+        if (is_string($data))
+            $this->stringConstructor($data);
+        if (is_array($data))
+            $this->arrayConstructor($data);
+    }
+
+    private function stringConstructor(string $file)
+    {
+        if (file_exists($file)) {
+            $config = parse_ini_file($file, true);
 
             if (!is_null($config)) {
                 $this->mysql['server'] = $config['database']['server'];
@@ -24,6 +32,10 @@ class Database
 
             $this->setConnection();
         }
+    }
+
+    private function arrayConstructor(array $data) {
+
     }
 
     private function setConnection()

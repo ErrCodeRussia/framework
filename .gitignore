@@ -1,9 +1,9 @@
-.*
-!.gitignore
+# folders
 .idea/
 /vendor/
 
-# dev files
+# testing
 index.php
 autoload.php
 inclusion.php
+config/
