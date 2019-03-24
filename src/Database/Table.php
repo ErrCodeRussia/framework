@@ -5,7 +5,7 @@ class Table
     private $columns;
     private $last;
 
-    public function increments($columnName, $size)
+    public function increments(string $columnName, int $size)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('int', $size);
@@ -15,126 +15,126 @@ class Table
         $this->columns[$columnName]['auto_increment'] = true;
     }
 
-    public function tinyint($columnName)
+    public function tinyint(string $columnName)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('tinyint');
         return $this;
     }
 
-    public function smallint($columnName)
+    public function smallint(string $columnName)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('smallint');
         return $this;
     }
 
-    public function mediumint($columnName)
+    public function mediumint(string $columnName)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('mediumint');
         return $this;
     }
 
-    public function int($columnName)
+    public function int(string $columnName)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('int');
         return $this;
     }
 
-    public function bigint($columnName)
+    public function bigint(string $columnName)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('bigint');
         return $this;
     }
 
-    public function float($columnName)
+    public function float(string $columnName)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('float');
         return $this;
     }
 
-    public function double($columnName)
+    public function double(string $columnName)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('double');
         return $this;
     }
 
-    public function boolean($columnName)
+    public function boolean(string $columnName)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('boolean');
         return $this;
     }
 
-    public function date($columnName)
+    public function date(string $columnName)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('date');
         return $this;
     }
 
-    public function time($columnName)
+    public function time(string $columnName)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('time');
         return $this;
     }
 
-    public function year($columnName)
+    public function year(string $columnName)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('year');
         return $this;
     }
 
-    public function datetime($columnName)
+    public function datetime(string $columnName)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('datetime');
         return $this;
     }
 
-    public function char($columnName)
+    public function char(string $columnName)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('char');
         return $this;
     }
 
-    public function varchar($columnName, $size)
+    public function varchar(string $columnName, int $size)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('varchar', $size);
         return $this;
     }
 
-    public function tinytext($columnName)
+    public function tinytext(string $columnName)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('tinytext');
         return $this;
     }
 
-    public function text($columnName)
+    public function text(string $columnName)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('text');
         return $this;
     }
 
-    public function mediumtext($columnName)
+    public function mediumtext(string $columnName)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('mediumtext');
         return $this;
     }
 
-    public function longtext($columnName)
+    public function longtext(string $columnName)
     {
         $this->last = $columnName;
         $this->columns[$columnName] = $this->setColumnInfo('longtext');

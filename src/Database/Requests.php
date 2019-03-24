@@ -2,12 +2,6 @@
 
 class Requests
 {
-    public static function getConnection()
-    {
-        $database = new Database();
-        return $database->getConnection();
-    }
-
     protected static function getCreateTableRequest($tableName, $params)
     {
         $request = "CREATE TABLE `$tableName` (";
@@ -32,6 +26,11 @@ class Requests
         return $request;
     }
 
+    protected static function getDropTableRequest($tableName)
+    {
+        return "DROP TABLE IF EXISTS `$tableName`";
+    }
+
     protected static function getAddColumnRequest($tableName, $params)
     {
         $request = "ALTER TABLE `$tableName` ";
@@ -46,6 +45,16 @@ class Requests
         $request .= self::foreachInRequest($params, "modify column")['request'];
 
         return $request;
+    }
+
+    protected static function getDropColumnRequest($tableName, $columnName)
+    {
+        return "ALTER TABLE `$tableName` DROP COLUMN `$columnName`";
+    }
+
+    protected static function getDefaultValueRequest($tableName, $columnName, $value)
+    {
+        return "ALTER TABLE `$tableName` ALTER COLUMN `$columnName` SET DEFAULT '$value'";
     }
 
     private static function foreachInRequest($info, $param = "")
