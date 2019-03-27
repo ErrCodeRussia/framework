@@ -4,6 +4,8 @@ class DatabaseConnection implements Connection
 {
 
     /**
+     *  Получение соединения с базой данных с помощью ввода данных для соединения
+     *
      * @param string $server    - адрес сервера (например, 127.0.0.1)
      * @param string $user      - имя пользователя
      * @param string $password  - пароль пользователя
@@ -22,6 +24,8 @@ class DatabaseConnection implements Connection
     }
 
     /**
+     *  Получение соединения с базой данных с помощью .ini-файла
+     *
      * @param string $file  - путь до .ini-файла, имеющего вид:
      *  [database]
      *  server   = server_address
@@ -56,6 +60,8 @@ class DatabaseConnection implements Connection
     }
 
     /**
+     *  Получение соединения, исходя из полученных данных
+     *
      * @param array $mysql  - массив вида ['server' => 'value', 'user' => 'value', 'password' => 'value', 'database' => 'value']
      *
      * @return mysqli       - соединение с базой данных

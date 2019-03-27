@@ -2,7 +2,15 @@
 
 class Requests
 {
-    protected static function getCreateTableRequest($tableName, $params)
+    /**
+     *  Получение запроса на создание таблицы
+     *
+     * @param string $tableName - название таблиы
+     * @param array $params     - массив параметров
+     *
+     * @return string           - запрос
+     */
+    protected static function getCreateTableRequest(string $tableName, array $params)
     {
         $request = "CREATE TABLE `$tableName` (";
         $pk = array();
@@ -26,12 +34,27 @@ class Requests
         return $request;
     }
 
-    protected static function getDropTableRequest($tableName)
+    /**
+     *  Получение запроса на удаление таблицы
+     *
+     * @param string $tableName - название таблицы
+     *
+     * @return string           - запрос
+     */
+    protected static function getDropTableRequest(string $tableName)
     {
         return "DROP TABLE IF EXISTS `$tableName`";
     }
 
-    protected static function getAddColumnRequest($tableName, $params)
+    /**
+     *  Получение запроса на создание колонки
+     *
+     * @param string $tableName - название таблицы
+     * @param array $params     - массив параметров
+     *
+     * @return string           - запрос
+     */
+    protected static function getAddColumnRequest(string $tableName, array $params)
     {
         $request = "ALTER TABLE `$tableName` ";
         $request .= self::foreachInRequest($params, "add")['request'];
@@ -39,7 +62,15 @@ class Requests
         return $request;
     }
 
-    protected static function getModifyColumnRequest($tableName, $params)
+    /**
+     *  Получение запроса на изменение колонки
+     *
+     * @param string $tableName - название таблицы
+     * @param array $params     - массив параметров
+     *
+     * @return string           - запрос
+     */
+    protected static function getModifyColumnRequest(string $tableName, array $params)
     {
         $request = "ALTER TABLE `$tableName` ";
         $request .= self::foreachInRequest($params, "modify column")['request'];
@@ -47,17 +78,42 @@ class Requests
         return $request;
     }
 
-    protected static function getDropColumnRequest($tableName, $columnName)
+    /**
+     *  Получение запроса на удаление колонки
+     *
+     * @param string $tableName     - название таблицы
+     * @param string $columnName    - название колонки
+     *
+     * @return string               - запрос
+     */
+    protected static function getDropColumnRequest(string $tableName, string $columnName)
     {
         return "ALTER TABLE `$tableName` DROP COLUMN `$columnName`";
     }
 
-    protected static function getDefaultValueRequest($tableName, $columnName, $value)
+    /**
+     *  Получение запроса на установку значения по умолчанию
+     *
+     * @param string $tableName     - название таблицы
+     * @param string $columnName    - название колонки, для которой нужно поставить значение по умолчанию
+     * @param $value                - значеие по умолчанию
+     *
+     * @return string               - запрос
+     */
+    protected static function getDefaultValueRequest(string $tableName, string $columnName, $value)
     {
         return "ALTER TABLE `$tableName` ALTER COLUMN `$columnName` SET DEFAULT '$value'";
     }
 
-    private static function foreachInRequest($info, $param = "")
+    /**
+     *  Проход по массиву с параметрами (данные о колонках)
+     *
+     * @param array $info   - массив входящих параметров
+     * @param string $param - параметр операции (например, ADD)
+     *
+     * @return array ['request', 'pk']
+     */
+    private static function foreachInRequest(array $info, string $param = "")
     {
         $request = '';
         $pk = array();

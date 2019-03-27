@@ -5,6 +5,12 @@ class Table
     private $columns;
     private $last;
 
+    /**
+     *  Первичный последовательный (autoincrement) ключ
+     *
+     * @param string $columnName    - название колонки
+     * @param int $size             - размер
+     */
     public function increments(string $columnName, int $size)
     {
         $this->last = $columnName;
@@ -15,6 +21,12 @@ class Table
         $this->columns[$columnName]['auto_increment'] = true;
     }
 
+    /**
+     *  Поле TINYINT
+     *
+     * @param string $columnName    - название колонки
+     * @return $this                - объект класса
+     */
     public function tinyint(string $columnName)
     {
         $this->last = $columnName;
@@ -22,6 +34,12 @@ class Table
         return $this;
     }
 
+    /**
+     *  Поле SMALLINT
+     *
+     * @param string $columnName
+     * @return $this
+     */
     public function smallint(string $columnName)
     {
         $this->last = $columnName;
@@ -29,6 +47,12 @@ class Table
         return $this;
     }
 
+    /**
+     *  Поле MEDIUMINT
+     *
+     * @param string $columnName
+     * @return $this
+     */
     public function mediumint(string $columnName)
     {
         $this->last = $columnName;
@@ -36,6 +60,12 @@ class Table
         return $this;
     }
 
+    /**
+     *  Поле INT
+     *
+     * @param string $columnName
+     * @return $this
+     */
     public function int(string $columnName)
     {
         $this->last = $columnName;
@@ -43,6 +73,12 @@ class Table
         return $this;
     }
 
+    /**
+     *  Поле BIGINT
+     *
+     * @param string $columnName
+     * @return $this
+     */
     public function bigint(string $columnName)
     {
         $this->last = $columnName;
@@ -50,6 +86,12 @@ class Table
         return $this;
     }
 
+    /**
+     *  Поле FLOAT
+     *
+     * @param string $columnName
+     * @return $this
+     */
     public function float(string $columnName)
     {
         $this->last = $columnName;
@@ -57,6 +99,12 @@ class Table
         return $this;
     }
 
+    /**
+     *  Поле DOUBLE
+     *
+     * @param string $columnName
+     * @return $this
+     */
     public function double(string $columnName)
     {
         $this->last = $columnName;
@@ -64,6 +112,12 @@ class Table
         return $this;
     }
 
+    /**
+     *  Поле BOOLEAB
+     *
+     * @param string $columnName
+     * @return $this
+     */
     public function boolean(string $columnName)
     {
         $this->last = $columnName;
@@ -71,6 +125,12 @@ class Table
         return $this;
     }
 
+    /**
+     *  Поле DATE
+     *
+     * @param string $columnName
+     * @return $this
+     */
     public function date(string $columnName)
     {
         $this->last = $columnName;
@@ -78,6 +138,12 @@ class Table
         return $this;
     }
 
+    /**
+     *  Поле TIME
+     *
+     * @param string $columnName
+     * @return $this
+     */
     public function time(string $columnName)
     {
         $this->last = $columnName;
@@ -85,6 +151,12 @@ class Table
         return $this;
     }
 
+    /**
+     *  Поле YEAR
+     *
+     * @param string $columnName
+     * @return $this
+     */
     public function year(string $columnName)
     {
         $this->last = $columnName;
@@ -92,6 +164,12 @@ class Table
         return $this;
     }
 
+    /**
+     *  Поле DATETIME
+     *
+     * @param string $columnName
+     * @return $this
+     */
     public function datetime(string $columnName)
     {
         $this->last = $columnName;
@@ -99,6 +177,12 @@ class Table
         return $this;
     }
 
+    /**
+     *  Поле CHAR
+     *
+     * @param string $columnName
+     * @return $this
+     */
     public function char(string $columnName)
     {
         $this->last = $columnName;
@@ -106,6 +190,13 @@ class Table
         return $this;
     }
 
+    /**
+     *  Поле VARCHAR
+     *
+     * @param string $columnName
+     * @param int $size
+     * @return $this
+     */
     public function varchar(string $columnName, int $size)
     {
         $this->last = $columnName;
@@ -113,6 +204,12 @@ class Table
         return $this;
     }
 
+    /**
+     *  Поле TINYTEXT
+     *
+     * @param string $columnName
+     * @return $this
+     */
     public function tinytext(string $columnName)
     {
         $this->last = $columnName;
@@ -120,6 +217,12 @@ class Table
         return $this;
     }
 
+    /**
+     *  Поле TEXT
+     *
+     * @param string $columnName
+     * @return $this
+     */
     public function text(string $columnName)
     {
         $this->last = $columnName;
@@ -127,6 +230,12 @@ class Table
         return $this;
     }
 
+    /**
+     *  Поле MEDIUMINT
+     *
+     * @param string $columnName
+     * @return $this
+     */
     public function mediumtext(string $columnName)
     {
         $this->last = $columnName;
@@ -134,6 +243,12 @@ class Table
         return $this;
     }
 
+    /**
+     *  Поле LONGINT
+     *
+     * @param string $columnName
+     * @return $this
+     */
     public function longtext(string $columnName)
     {
         $this->last = $columnName;
