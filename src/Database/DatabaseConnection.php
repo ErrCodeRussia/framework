@@ -20,7 +20,7 @@ class DatabaseConnection implements Connection
         $mysql['password'] = $password;
         $mysql['database'] = $database;
 
-        return self::getConnection($mysql);
+        return self::getMysqliConnection($mysql);
     }
 
     /**
@@ -47,10 +47,41 @@ class DatabaseConnection implements Connection
                     $mysql['password'] = $config['database']['password'];
                     $mysql['database'] = $config['database']['database'];
 
-                    return self::getConnection($mysql);
+                    return self::getMysqliConnection($mysql);
                 }
                 else {
                     throw new Exception("Failed to open your .ini-file!");
+                }
+            }
+            catch (Exception $e) {
+                echo $e->getMessage();
+            }
+        }
+    }
+
+    /**
+     *  Получение соединения с базой данных для ErrCode Engine
+     *
+     * @return mysqli
+     */
+    public static function getConnection()
+    {
+        $file = CONFIG . ".ini";
+
+        if (file_exists($file)) {
+            $config = parse_ini_file($file, true);
+
+            try {
+                if (!is_null($config)) {
+                    $mysql['server'] = $config['database']['server'];
+                    $mysql['user'] = $config['database']['user'];
+                    $mysql['password'] = $config['database']['password'];
+                    $mysql['database'] = $config['database']['database'];
+
+                    return self::getMysqliConnection($mysql);
+                }
+                else {
+                    throw new Exception("Failed to open .ini-file!");
                 }
             }
             catch (Exception $e) {
@@ -66,7 +97,7 @@ class DatabaseConnection implements Connection
      *
      * @return mysqli       - соединение с базой данных
      */
-    private static function getConnection(array $mysql)
+    private static function getMysqliConnection(array $mysql)
     {
         $connection = mysqli_connect(
             $mysql['server'],
