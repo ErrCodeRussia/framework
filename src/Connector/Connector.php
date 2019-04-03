@@ -9,13 +9,14 @@ class Connector
         if (end($explode_dir))
             $folder .= '/';
 
+        $requireList = array();
         $fileList = array();
 
         if ($catalog = opendir($folder)) {
             do {
                 $file = readdir($catalog);
                 if ($file != false) {
-                    $fileList[] = $file;
+                    $requireList[] = $file;
                     $count = true;
                 }
                 else {
@@ -23,21 +24,28 @@ class Connector
                 }
             } while ($count);
 
-            foreach ($fileList as $key => $file) {
+            foreach ($requireList as $key => $file) {
                 if ($file == '.' || $file == '..') {
-                    unset($fileList[$key]);
+                    unset($requireList[$key]);
                 }
                 else {
-                    $fileList[$key] = $folder . $file;
+                    $requireList[$key] = $folder . $file;
                 }
+            }
+            sort($requireList);
+        }
+
+        foreach ($requireList as $file) {
+            if (is_dir($file)) {
+                self::requireFolder($file);
+            }
+            else {
+                $fileList[] = $file;
             }
         }
 
         foreach ($fileList as $file) {
-            if (is_dir($file))
-                self::requireFolder($file);
-            else
-                require_once "Connector.php";
+            require_once "$file";
         }
     }
 }
