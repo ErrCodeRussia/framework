@@ -10,7 +10,6 @@ class DatabaseConnection implements Connection
      * @param string $user      - имя пользователя
      * @param string $password  - пароль пользователя
      * @param string $database  - название базы данных
-     *
      * @return mixed|mysqli     - соединение с базой данных
      */
     public static function getConnectionFromData(string $server, string $user, string $password, string $database)
@@ -32,7 +31,6 @@ class DatabaseConnection implements Connection
      *  user     = user_name
      *  password = user_password
      *  database = database_name
-     *
      * @return mixed|mysqli - соединение с базой данных
      */
     public static function getConnectionFromFile(string $file)
@@ -91,10 +89,20 @@ class DatabaseConnection implements Connection
     }
 
     /**
+     *  Закрытие соединения с базой данных
+     *
+     * @param $connection   - соединение с базой данных
+     * @return bool         - результат выполнения (true/false)
+     */
+    public static function closeConnection($connection)
+    {
+        return mysqli_close($connection);
+    }
+
+    /**
      *  Получение соединения, исходя из полученных данных
      *
      * @param array $mysql  - массив вида ['server' => 'value', 'user' => 'value', 'password' => 'value', 'database' => 'value']
-     *
      * @return mysqli       - соединение с базой данных
      */
     private static function getMysqliConnection(array $mysql)
