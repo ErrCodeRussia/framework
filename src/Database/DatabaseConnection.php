@@ -112,7 +112,7 @@ class DatabaseConnection implements Connection
             $mysql['user'],
             $mysql['password'],
             $mysql['database']
-        );
+        ) or die (mysqli_connect_error());
         mysqli_query($connection, "set NAMES utf8");
 
         return $connection;
