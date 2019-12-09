@@ -3,6 +3,7 @@
 namespace base\controllers;
 
 use base\interfaces\ControllerInterface;
+use base\Page;
 
 
 class Controller implements ControllerInterface
