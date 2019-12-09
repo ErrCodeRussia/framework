@@ -1,6 +1,6 @@
 <?php
 
-namespace app\connector;
+namespace base\connector;
 
 
 class Connector

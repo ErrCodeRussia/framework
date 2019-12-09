@@ -72,10 +72,8 @@ class Page
         $this->meta = COMMON_LAYOUTS . "head/meta.php";
         $this->styles = COMMON_LAYOUTS . "head/styles.php";
         $this->scripts = COMMON_LAYOUTS . "head/scripts.php";
-        $this->adminStyles = ADMIN_LAYOUTS . 'head/styles.php';
         $this->header = COMMON_LAYOUTS . "body/header.php";
         $this->footer = COMMON_LAYOUTS . "body/footer.php";
-        $this->adminMenu = ADMIN_LAYOUTS . "body/menu.php";
 
         if (!empty($_GET))
             $this->get = Security::protectData($_GET);
