@@ -1,6 +1,8 @@
 <?php
 
-class Requests
+namespace base\database\schema;
+
+class SchemaRequests
 {
     /**
      *  Получение запроса на создание таблицы
@@ -10,7 +12,7 @@ class Requests
      *
      * @return string           - запрос
      */
-    protected static function getCreateTableRequest(string $tableName, array $params)
+    public static function getCreateTableRequest(string $tableName, array $params)
     {
         $request = "CREATE TABLE `$tableName` (";
         $pk = array();
@@ -41,7 +43,7 @@ class Requests
      *
      * @return string           - запрос
      */
-    protected static function getDropTableRequest(string $tableName)
+    public static function getDropTableRequest(string $tableName)
     {
         return "DROP TABLE IF EXISTS `$tableName`";
     }
@@ -54,7 +56,7 @@ class Requests
      *
      * @return string           - запрос
      */
-    protected static function getAddColumnRequest(string $tableName, array $params)
+    public static function getAddColumnRequest(string $tableName, array $params)
     {
         $request = "ALTER TABLE `$tableName` ";
         $request .= self::foreachInRequest($params, "add")['request'];
@@ -70,7 +72,7 @@ class Requests
      *
      * @return string           - запрос
      */
-    protected static function getModifyColumnRequest(string $tableName, array $params)
+    public static function getModifyColumnRequest(string $tableName, array $params)
     {
         $request = "ALTER TABLE `$tableName` ";
         $request .= self::foreachInRequest($params, "modify column")['request'];
@@ -86,7 +88,7 @@ class Requests
      *
      * @return string               - запрос
      */
-    protected static function getDropColumnRequest(string $tableName, string $columnName)
+    public static function getDropColumnRequest(string $tableName, string $columnName)
     {
         return "ALTER TABLE `$tableName` DROP COLUMN `$columnName`";
     }
@@ -100,7 +102,7 @@ class Requests
      *
      * @return string               - запрос
      */
-    protected static function getDefaultValueRequest(string $tableName, string $columnName, $value)
+    public static function getDefaultValueRequest(string $tableName, string $columnName, $value)
     {
         return "ALTER TABLE `$tableName` ALTER COLUMN `$columnName` SET DEFAULT '$value'";
     }

@@ -1,5 +1,8 @@
 <?php
 
+namespace base\database\schema;
+
+
 class Table
 {
     private $columns;

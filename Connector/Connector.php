@@ -1,5 +1,8 @@
 <?php
 
+namespace app\connector;
+
+
 class Connector
 {
     public static function requireFolder($folder)
