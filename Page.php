@@ -7,6 +7,11 @@ use base\security\Security;
 class Page
 {
     /**
+     * @var $api - переменная для проверки, нужно ли отрисовывать страничку (если сайт - API, то не нужно)
+     */
+    public $api = false;
+
+    /**
      *  Контент в <head></head>
      *
      * @var $meta - метатеги

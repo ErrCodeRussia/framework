@@ -15,19 +15,19 @@ class Generate
      */
     public function __construct($page)
     {
-        if ($page->module == 'admin') {
-            $file = ADMIN_LAYOUTS . "main.php";
-        }
-        else {
-            $file = COMMON_LAYOUTS . "main.php";
-        }
+        if ($page->api === false) {
+            if ($page->module == 'admin') {
+                $file = ADMIN_LAYOUTS . "main.php";
+            } else {
+                $file = COMMON_LAYOUTS . "main.php";
+            }
 
-        if (file_exists($file)) {
-            $this->render = $file;
-        }
-        else {
-            echo "Error in Generate class!";
-            return;
+            if (file_exists($file)) {
+                $this->render = $file;
+            } else {
+                echo "Error in Generate class!";
+                return;
+            }
         }
 
         $this->page['page'] = $page;
