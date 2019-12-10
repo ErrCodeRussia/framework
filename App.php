@@ -32,7 +32,6 @@ class App
     public function run()
     {
         if (!empty($this->routing->rules)) {
-//            var_dump($_SERVER['REQUEST_METHOD']);
             foreach ($this->routing->rules as $rule) {
                 // проверяем метод
                 if (strtoupper($rule->getMethod()) != 'ALL' && strtoupper($rule->getMethod()) !== strtoupper($_SERVER['REQUEST_METHOD'])) {
