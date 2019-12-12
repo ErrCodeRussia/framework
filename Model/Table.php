@@ -43,9 +43,6 @@ class Table implements TableInterface
         $flag = 0;
         $tableValues = "";
         foreach ($vars as $key => $var) {
-            if ($key == 'status') {
-                continue;
-            }
             if ($flag) {
                 $tableValues .= ", '{$var}'";
             }
