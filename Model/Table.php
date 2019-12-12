@@ -31,7 +31,7 @@ class Table implements TableInterface
         $flag = 0;
         $tableFields = "";
         foreach ($vars as $key => $var) {
-            if ($key == 'status') {
+            if ($key == 'validateStatus') {
                 continue;
             }
             if ($flag) {
