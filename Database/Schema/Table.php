@@ -22,6 +22,7 @@ class Table
         $this->columns[$columnName]['primary key'] = true;
         $this->columns[$columnName]['not null'] = true;
         $this->columns[$columnName]['auto_increment'] = true;
+        $this->columns[$columnName]['unsigned'] = true;
     }
 
     /**

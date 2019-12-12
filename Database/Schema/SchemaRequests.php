@@ -17,8 +17,9 @@ class SchemaRequests
         $request = "CREATE TABLE `$tableName` (";
         $pk = array();
 
-        $request .= self::foreachInRequest($params)['request'];
-        $pk = self::foreachInRequest($params)['pk'];
+        $foreach = self::foreachInRequest($params);
+        $request .= $foreach['request'];
+        $pk = $foreach['pk'];
 
         $count = 0;
         if ($pk) {
