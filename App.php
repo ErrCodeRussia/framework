@@ -90,6 +90,8 @@ class App
                     if (method_exists($this->controller, 'beforeAction'))
                         $this->controller->beforeAction();
                     $this->controller->$action();
+                    if (method_exists($this->controller, 'afterAction'))
+                        $this->controller->afterAction();
                 }
             }
         }

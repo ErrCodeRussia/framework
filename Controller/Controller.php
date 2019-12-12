@@ -11,6 +11,16 @@ class Controller implements ControllerInterface
     public $page;
     public $params;
 
+    public function beforeAction()
+    {
+
+    }
+
+    public function afterAction()
+    {
+
+    }
+
     /**
      * Controller constructor.
      * @param Page $page - объект страницы
