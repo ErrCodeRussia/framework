@@ -16,11 +16,7 @@ class Generate
     public function __construct($page)
     {
         if ($page->api === false) {
-            if ($page->module == 'admin') {
-                $file = ADMIN_LAYOUTS . "main.php";
-            } else {
-                $file = COMMON_LAYOUTS . "main.php";
-            }
+            $file = LAYOUTS . "main.php";
 
             if (file_exists($file)) {
                 $this->render = $file;
