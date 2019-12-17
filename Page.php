@@ -12,6 +12,11 @@ class Page
     public $api = false;
 
     /**
+     * @var $projectName - название проекта из файла config/config.ini
+     */
+    public $projectName;
+
+    /**
      *  Контент в <head></head>
      *
      * @var $meta - метатеги
@@ -74,11 +79,14 @@ class Page
 
     public function __construct()
     {
-        $this->meta = COMMON_LAYOUTS . "head/meta.php";
-        $this->styles = COMMON_LAYOUTS . "head/styles.php";
-        $this->scripts = COMMON_LAYOUTS . "head/scripts.php";
-        $this->header = COMMON_LAYOUTS . "body/header.php";
-        $this->footer = COMMON_LAYOUTS . "body/footer.php";
+        if (!defined("LAYOUTS"))
+            define("LAYOUTS", $_SERVER['DOCUMENT_ROOT'] . "/../views/layouts/");
+
+        $this->meta = LAYOUTS . "head/meta.php";
+        $this->styles = LAYOUTS . "head/styles.php";
+        $this->scripts = LAYOUTS . "head/scripts.php";
+        $this->header = LAYOUTS . "body/header.php";
+        $this->footer = LAYOUTS . "body/footer.php";
 
         if (!empty($_GET))
             $this->get = Security::protectData($_GET);

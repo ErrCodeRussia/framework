@@ -2,6 +2,7 @@
 
 namespace base;
 
+use base\controllers\ErrorController;
 use base\routing\Path;
 use base\routing\Routing;
 
@@ -16,6 +17,8 @@ class App
     private $controller;
     private $action;
 
+    private $ini;
+
     /**
      * Routing constructor.
      * @param $page Page;
@@ -27,6 +30,14 @@ class App
         $this->path = new Path();
         $this->routing = $routing;
         $this->params = array();
+
+        if (!defined("CONFIG"))
+            define("CONFIG", $_SERVER['DOCUMENT_ROOT'] . "/../config/");
+
+        if (!defined("VIEWS"))
+            define("VIEWS", $_SERVER['DOCUMENT_ROOT'] . "/../views/");
+
+        $this->ini = parse_ini_file(CONFIG . "config.ini", true);
     }
 
     public function run()
@@ -99,8 +110,8 @@ class App
         }
 
         if (empty($this->controller)) {
-            $this->controller = new ErrorController($this->page);
-            $this->controller->pageNotFound();
+            $this->controller = new ErrorController($this->page, $this->ini['errors']);
+            $this->controller->error404();
 
             return;
         }
