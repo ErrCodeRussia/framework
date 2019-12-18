@@ -9,7 +9,7 @@
             "email": "ozpavel@yandex.ru"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "ext-mysqli": "*"
     },

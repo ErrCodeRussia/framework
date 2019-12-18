@@ -56,8 +56,6 @@ class Table implements TableInterface
             INSERT INTO `{$this->tableName}` ({$tableFields}) VALUES ({$tableValues})
         ";
 
-
-
         return $this->database->query($sql);
     }
 
