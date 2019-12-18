@@ -11,8 +11,6 @@ class View
     private $render = false;
     private $page;
 
-    private $pageNotFound = VIEWS . "errors/404.php";
-
     /**
      * View constructor.
      * @param $template
@@ -28,14 +26,10 @@ class View
             $this->render = $file;
         }
         else {
-            $this->render = $this->pageNotFound;
+            echo "Файл [" . $file . "] не найден!";
             return;
         }
 
-//        foreach ($dataArray as $variable => $value) {
-//            $this->data[$variable] = $value;
-//        }
-//        array_merge($this->data, $dataArray);
         $this->data = $dataArray;
 
         $this->data['page'] = $page;
@@ -47,15 +41,5 @@ class View
         require $file;
 
         $page->setContent(ob_get_clean());
-    }
-
-    public function __destruct()
-    {
-//        if ($this->render) {
-//            $this->page->setData($this->data);
-//            $this->page->setContent($this->render);
-//            extract($this->data);
-//            include $this->render;
-//        }
     }
 }

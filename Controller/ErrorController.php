@@ -27,6 +27,6 @@ class ErrorController
 
     public function error404()
     {
-        $view = new View(VIEWS . $this->error404, $this->page);
+        $view = new View($this->error404, $this->page);
     }
 }
