@@ -3,6 +3,7 @@
 namespace base;
 
 use base\security\Security;
+use base\session\Session;
 
 class Page
 {
@@ -66,7 +67,7 @@ class Page
     private $files;
 
     /**
-     * @var $session - для работы с сессией
+     * @var $session - экземпляр класса Session()
      */
     public $session;
 
@@ -95,7 +96,7 @@ class Page
         if (!empty($_FILES))
             $this->files = $_FILES;
 
-        $this->session = &$_SESSION;
+        $this->session = new Session();
     }
 
     public function generate()
@@ -248,27 +249,11 @@ class Page
     }
 
     /**
-     * @param array $get
-     */
-    public function setGet($get)
-    {
-        $this->get = $get;
-    }
-
-    /**
      * @return array
      */
     public function getPost()
     {
         return $this->post;
-    }
-
-    /**
-     * @param array $post
-     */
-    public function setPost($post)
-    {
-        $this->post = $post;
     }
 
     /**
