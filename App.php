@@ -55,8 +55,6 @@ class App
                     $this->controller = new $this->controllerName($this->page, $this->params);
                     $this->action = $rule->getAction();
 
-                    $this->page->module = $rule->getModule();
-
                     $controller = $this->controller;
                     $action = $this->action;
 
@@ -94,7 +92,6 @@ class App
                     $this->controllerName = $rule->getController();
                     $this->controller = new $this->controllerName($this->page, $this->params);
                     $this->action = $rule->getAction();
-                    $this->page->module = $rule->getModule();
                 }
 
                 if (isset($this->controller) && isset($this->action)) {
