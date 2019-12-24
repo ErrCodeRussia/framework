@@ -50,14 +50,6 @@ class Router
     /**
      * @return mixed
      */
-    public function getModule()
-    {
-        return $this->module;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getController()
     {
         return $this->controller;
@@ -77,10 +69,5 @@ class Router
     public function getMethod()
     {
         return $this->method;
-    }
-
-    public function checkLink($link)
-    {
-        //
     }
 }
