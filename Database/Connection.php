@@ -2,6 +2,7 @@
 
 namespace base\database;
 
+use base\App;
 use \Exception;
 
 
@@ -10,19 +11,19 @@ class Connection
     public static function getConnectionFromFile($file)
     {
         if (file_exists($file)) {
-            $config = parse_ini_file($file, true);
+            $database = App::$config->database;
 
             try {
-                if (!is_null($config)) {
-                    $mysql['server'] = $config['database']['server'];
-                    $mysql['user'] = $config['database']['user'];
-                    $mysql['password'] = $config['database']['password'];
-                    $mysql['database'] = $config['database']['database'];
+                if (!is_null($database)) {
+                    $mysql['host'] = $database['host'];
+                    $mysql['user'] = $database['user'];
+                    $mysql['password'] = $database['password'];
+                    $mysql['database'] = $database['database'];
 
                     return self::getMysqliConnection($mysql);
                 }
                 else {
-                    throw new Exception("Failed to open your .ini-file!");
+                    throw new Exception("Ошибка при чтении настроек базы данных!");
                 }
             }
             catch (Exception $e) {
@@ -34,7 +35,7 @@ class Connection
     private static function getMysqliConnection(array $mysql)
     {
         $connection = mysqli_connect(
-            $mysql['server'],
+            $mysql['host'],
             $mysql['user'],
             $mysql['password'],
             $mysql['database']

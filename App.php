@@ -2,12 +2,23 @@
 
 namespace base;
 
+use base\config\Config;
 use base\controllers\ErrorController;
 use base\routing\Path;
 use base\routing\Routing;
 
 class App
 {
+    /**
+     *  В этой статичной переменной хранится обработчик файла конфигурации.
+     * С помощью него можно получить нужные данные проекта из любой части
+     * приложения, воспользовавшись конструкцией App::$config.
+     *
+     *  Класс Config работает с файлом config.php, который должен находиться
+     * в папке config/ в корне вашего проекта.
+     */
+    public static $config;
+
     private $page;
     private $path;
     private $routing;
@@ -17,8 +28,6 @@ class App
     private $controller;
     private $action;
 
-    private $ini;
-
     /**
      * Routing constructor.
      * @param $page Page;
@@ -26,6 +35,8 @@ class App
      */
     public function __construct(&$page, $routing)
     {
+        self::$config = new Config();
+
         $this->page = $page;
         $this->path = new Path();
         $this->routing = $routing;
@@ -36,8 +47,6 @@ class App
 
         if (!defined("VIEWS"))
             define("VIEWS", $_SERVER['DOCUMENT_ROOT'] . "/../views/");
-
-        $this->ini = parse_ini_file(CONFIG . "config.ini", true);
     }
 
     public function run()
@@ -107,7 +116,7 @@ class App
         }
 
         if (empty($this->controller)) {
-            $this->controller = new ErrorController($this->page, $this->ini['errors']);
+            $this->controller = new ErrorController($this->page, self::$config->errors);
             $this->controller->error404();
 
             return;

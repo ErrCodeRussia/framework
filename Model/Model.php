@@ -8,7 +8,7 @@ use base\interfaces\ModelInterface;
 
 class Model implements ModelInterface
 {
-    private $status;
+    public $status;
 
     public function validate()
     {

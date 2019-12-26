@@ -1,9 +1,4 @@
 # folders
 .idea/
 /vendor/
-
-# testing
-index.php
-autoload.php
-inclusion.php
-config/
+composer.lock
