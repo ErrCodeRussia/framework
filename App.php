@@ -51,6 +51,11 @@ class App
 
     public function run()
     {
+        if ($this->path->getUrl() == '/' && self::$config->homeUrl != '/') {
+            header("Location: " . self::$config->homeUrl);
+            return;
+        }
+
         if (!empty($this->routing->rules)) {
             foreach ($this->routing->rules as $rule) {
                 // проверяем метод
