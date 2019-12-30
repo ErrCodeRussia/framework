@@ -42,6 +42,25 @@ class Config
     public $database;
 
     /**
+     * @var $styles
+     * @var $scripts
+     *
+     *  Хранят относительные ссылки на подключаемые файлы.
+     * STYLES - относительно папки public_html/css/
+     * SCRIPTS - относительно папки public_html/js/
+     */
+    public $styles;
+    public $scripts;
+
+    /**
+     * @var $favicon
+     *
+     *  Хранит относительный путь к файлу иконки сайта.
+     * Путь относительно public_html/
+     */
+    public $favicon;
+
+    /**
      *  Хранит массив со ссылками на пользовательское представление ошибок
      * (view-файлы).
      *

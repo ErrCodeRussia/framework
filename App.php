@@ -30,14 +30,12 @@ class App
 
     /**
      * Routing constructor.
-     * @param $page Page;
      * @param $routing Routing;
      */
-    public function __construct(&$page, $routing)
+    public function __construct($routing)
     {
         self::$config = new Config();
 
-        $this->page = $page;
         $this->path = new Path();
         $this->routing = $routing;
         $this->params = array();
@@ -47,6 +45,14 @@ class App
 
         if (!defined("VIEWS"))
             define("VIEWS", $_SERVER['DOCUMENT_ROOT'] . "/../views/");
+    }
+
+    /**
+     * @param $page Page;
+     */
+    public function setPage(&$page)
+    {
+        $this->page = $page;
     }
 
     public function run()

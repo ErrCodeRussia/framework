@@ -84,10 +84,11 @@ class Page
             define("LAYOUTS", $_SERVER['DOCUMENT_ROOT'] . "/../views/layouts/");
 
         $this->meta = LAYOUTS . "head/meta.php";
-        $this->styles = LAYOUTS . "head/styles.php";
-        $this->scripts = LAYOUTS . "head/scripts.php";
         $this->header = LAYOUTS . "body/header.php";
         $this->footer = LAYOUTS . "body/footer.php";
+
+        $this->setStyles();
+        $this->setScripts();
 
         if (!empty($_GET))
             $this->get = Security::protectData($_GET);
@@ -102,6 +103,40 @@ class Page
     public function generate()
     {
         $generator = new Generate($this);
+    }
+
+    private function setStyles()
+    {
+        $styles = App::$config->styles;
+        $favicon = App::$config->favicon;
+
+        if (empty($styles))
+            return;
+
+        $string = '';
+        if ($favicon != '')
+            $string .= "<link rel='icon' href='/{$favicon}' type='image/x-icon'>";
+
+        foreach ($styles as $style) {
+            $string .= "<link rel='stylesheet' href='/css/{$style}'>";
+        }
+
+        $this->styles = $string;
+    }
+
+    private function setScripts()
+    {
+        $scripts = App::$config->scripts;
+
+        if (empty($scripts))
+            return;
+
+        $string = '';
+        foreach ($scripts as $script) {
+            $string .= "<script src='/js/{$script}'></script>";
+        }
+
+        $this->scripts = $string;
     }
 
     /**
