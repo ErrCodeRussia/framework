@@ -4,6 +4,8 @@ namespace base\database;
 
 use base\App;
 use \Exception;
+use PDO;
+use PDOException;
 
 
 class Connection
@@ -34,24 +36,25 @@ class Connection
 
     private static function getMysqliConnection(array $mysql)
     {
-        $connection = mysqli_connect(
-            $mysql['host'],
-            $mysql['user'],
-            $mysql['password'],
-            $mysql['database']
-        ) or die (mysqli_connect_error());
-        mysqli_query($connection, "set NAMES utf8");
+        try {
+            $connection = new PDO("mysql:host=" . $mysql['host'] . ";dbname=" . $mysql['database'], $mysql['user'], $mysql['password']);
+            $connection->query("set NAMES utf8");
+        }
+        catch (PDOException $e) {
+            echo "Ошибка базы данных! [{$e->getCode()}]: {$e->getMessage()}";
+            die();
+        }
 
         return $connection;
     }
 
     public static function getConnection()
     {
-        return self::getConnectionFromFile(CONFIG . "config.ini");
+        return self::getConnectionFromFile(CONFIG . "config.php");
     }
 
     public static function closeConnection($connection)
     {
-        return mysqli_close($connection);
+        return $connection = null;
     }
 }

@@ -3,7 +3,7 @@
 namespace base\database\schema;
 
 
-class Table
+class SchemaTable
 {
     private $columns;
     private $last;

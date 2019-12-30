@@ -18,7 +18,7 @@ class Schema
      */
     public static function createTable(string $tableName, Closure $params)
     {
-        $table = new Table();
+        $table = new SchemaTable();
         self::$database = new Database();
 
         self::$database->query(SchemaRequests::getCreateTableRequest($tableName, $params->call($table, $table)));
@@ -44,7 +44,7 @@ class Schema
      */
     public static function addColumn(string $tableName, Closure $params)
     {
-        $table = new Table();
+        $table = new SchemaTable();
         self::$database = new Database();
 
         self::$database->query(SchemaRequests::getAddColumnRequest($tableName, $params->call($table, $table)));
@@ -59,7 +59,7 @@ class Schema
      */
     public static function modifyColumn(string $tableName, Closure $params, $connection = null)
     {
-        $table = new Table();
+        $table = new SchemaTable();
         self::$database = new Database();
 
         self::$database->query(SchemaRequests::getModifyColumnRequest($tableName, $params->call($table, $table)));

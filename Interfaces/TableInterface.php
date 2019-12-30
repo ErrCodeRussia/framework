@@ -8,39 +8,30 @@ interface TableInterface
 {
     /**
      * @param $object // Any class which implements Model
-     * @return bool
+     * @return int
      */
-    public function insert($object) : bool;
+    public function insert($object) : int;
 
     /**
-     * @param $whereCondition
-     * @param $whereConditionValue
-     * @param array $conditions - [condition => conditionValue]
-     * @return bool
+     * @param $params
+     * @param $where
+     * @return int
      */
-    public function update($whereCondition, $whereConditionValue, $conditions): bool;
+    public function update($params, $where): int;
 
     /**
-     * @return bool
+     * @param $where
+     * @return int
      */
-    public function deleteAll() : bool;
+    public function delete($where) : int;
 
     /**
-     * @param string $condition
-     * @param string|number $conditionValue
-     * @return bool
-     */
-    public function deleteByCondition($condition, $conditionValue) : bool;
-
-    /**
+     * @param array|string $select
+     * @param array|null $where
+     * @param array|null $order_by
+     * @param number|null $limit
+     * @param number|null $offset
      * @return array
      */
-    public function getAll() : array;
-
-    /**
-     * @param string $condition
-     * @param string|number $conditionValue
-     * @return array
-     */
-    public function getByCondition($condition, $conditionValue) : array ;
+    public function get($select, $where = null, $order_by = null, $limit = null, $offset = null) : array;
 }

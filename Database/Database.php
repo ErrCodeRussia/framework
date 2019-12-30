@@ -26,8 +26,9 @@ class Database
     {
         $res = array();
 
-        if ($query = mysqli_query($this->connection, $sql)) {
-            while ($arr = mysqli_fetch_assoc($query)) {
+        if ($query = $this->connection->query($sql)) {
+            $query->setFetchMode(\PDO::FETCH_ASSOC);
+            while ($arr = $query->fetch()) {
                 $res[] = $arr;
             }
 
@@ -37,13 +38,21 @@ class Database
             return null;
     }
 
+    public function exec($sql)
+    {
+        return $this->connection->exec($sql);
+    }
+
     public function query($sql)
     {
-        return mysqli_query($this->connection, $sql) or die(mysqli_error($this->connection));
+        $query = $this->connection->query($sql);
+        $query->setFetchMode(\PDO::FETCH_ASSOC);
+
+        return $query;
     }
 
     public function getInsertId()
     {
-        return mysqli_insert_id($this->connection);
+        return $this->connection->lastInsertId();
     }
 }
