@@ -13,6 +13,8 @@ class User extends Model
     private $name;
     private $surname;
 
+    private $storage;
+
     public function __construct()
     {
         $this->login = &$_SESSION['user']['login'];
@@ -21,6 +23,8 @@ class User extends Model
 
         $this->name = &$_SESSION['user']['name'];
         $this->surname = &$_SESSION['user']['surname'];
+
+        $this->storage = &$_SESSION['userStorage'];
     }
 
     /**
@@ -29,9 +33,9 @@ class User extends Model
      * @param $param - название параметра
      * @param $value - значение параметра
      */
-    public function setParam($param, $value)
+    public function set($param, $value)
     {
-        $_SESSION['user'][$param] = $value;
+        $this->storage[$param] = $value;
     }
 
     /**
@@ -40,9 +44,31 @@ class User extends Model
      * @param $param - название параметра
      * @return mixed - значение параметра
      */
-    public function getParam($param)
+    public function get($param)
     {
-        return $_SESSION['user'][$param];
+        return $this->storage[$param];
+    }
+
+    /**
+     *  Удаляет переданный параметр у пользователя.
+     *
+     * @param $param - название параметра для удаления
+     */
+    public function remove($param)
+    {
+        if ($this->has($param))
+            unset($this->storage[$param]);
+    }
+
+    /**
+     *  Проверяет наличие определённого параметра у пользователя
+     *
+     * @param $param - название параметра для проверки
+     * @return bool
+     */
+    public function has($param)
+    {
+        return isset($this->storage[$param]);
     }
 
     /**
