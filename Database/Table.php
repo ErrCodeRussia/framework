@@ -67,7 +67,6 @@ class Table implements TableInterface
             INSERT INTO `{$this->tableName}` ({$tableFields}) VALUES ({$tableValues})
         ";
 
-        var_dump($sql);
         return $this->database->exec($sql);
     }
 
