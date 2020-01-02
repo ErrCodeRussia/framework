@@ -10,10 +10,15 @@ use PDOException;
 
 class Connection
 {
-    public static function getConnectionFromFile($file)
+    public static function getConnection($dbname = null)
     {
+        $file = CONFIG . "config.php";
+
         if (file_exists($file)) {
-            $database = App::$config->database;
+            if (is_null($dbname))
+                $database = App::$config->database['default'];
+            else
+                $database = App::$config->database[$dbname];
 
             try {
                 if (!is_null($database)) {
@@ -34,6 +39,11 @@ class Connection
         }
     }
 
+    public static function closeConnection($connection)
+    {
+        return $connection = null;
+    }
+
     private static function getMysqliConnection(array $mysql)
     {
         try {
@@ -46,15 +56,5 @@ class Connection
         }
 
         return $connection;
-    }
-
-    public static function getConnection()
-    {
-        return self::getConnectionFromFile(CONFIG . "config.php");
-    }
-
-    public static function closeConnection($connection)
-    {
-        return $connection = null;
     }
 }

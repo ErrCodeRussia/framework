@@ -8,11 +8,20 @@ class Database
     private $connection;
 
     /**
-     * Database constructor.
+     *  Database constructor.
+     * @param string|null $database
      */
-    public function __construct()
+    public function __construct($database = null)
     {
-        $this->connection = Connection::getConnection();
+        $this->connection = Connection::getConnection($database);
+    }
+
+    /**
+     *  Database destructor
+     */
+    public function __destruct()
+    {
+        Connection::closeConnection($this->connection);
     }
 
 

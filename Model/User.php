@@ -6,6 +6,9 @@ namespace base\model;
 
 class User extends Model
 {
+    public $auth;
+
+    private $id;
     private $login;
     private $email;
     private $phone;
@@ -13,16 +16,25 @@ class User extends Model
     private $name;
     private $surname;
 
+    private $group;
+    private $role;
+
     private $storage;
 
     public function __construct()
     {
+        $this->auth = &$_SESSION['user']['auth'];
+
+        $this->id = &$_SESSION['user']['id'];
         $this->login = &$_SESSION['user']['login'];
         $this->email = &$_SESSION['user']['email'];
         $this->phone = &$_SESSION['user']['phone'];
 
         $this->name = &$_SESSION['user']['name'];
         $this->surname = &$_SESSION['user']['surname'];
+
+        $this->group = &$_SESSION['user']['group'];
+        $this->role = &$_SESSION['user']['role'];
 
         $this->storage = &$_SESSION['userStorage'];
     }
@@ -69,6 +81,38 @@ class User extends Model
     public function has($param)
     {
         return isset($this->storage[$param]);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuth()
+    {
+        return $this->auth;
+    }
+
+    /**
+     * @param mixed $auth
+     */
+    public function setAuth($auth): void
+    {
+        $this->auth = $auth;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
     }
 
     /**
