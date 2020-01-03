@@ -13,11 +13,6 @@ class Page
     public $api = false;
 
     /**
-     * @var $projectName - название проекта из файла config/config.ini
-     */
-    public $projectName;
-
-    /**
      *  Контент в <head></head>
      *
      * @var $meta - метатеги
@@ -50,10 +45,8 @@ class Page
     /**
      *  Контент конкретной страницы
      *
-     * @var $data - содержит переменные PHP, которые используются во вьюхах
      * @var $content - содержимое вьюхи для конкретной страницы
      */
-    public $data;
     public $content;
 
     /**
@@ -70,13 +63,6 @@ class Page
      * @var $session - экземпляр класса Session()
      */
     public $session;
-
-    /**
-     * @var $module - модуль, к которому относится страници сайта
-     * Благодаря ему можно закрыть доступ к определённым разделам сайта, например, к админ-панели.
-     * Задаётся при определении роутинга в config/routing.php
-     */
-    public $module;
 
     public function __construct()
     {
@@ -142,38 +128,6 @@ class Page
     /**
      * @return string
      */
-    public function getMeta()
-    {
-        return $this->meta;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStyles()
-    {
-        return $this->styles;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getScripts()
-    {
-        return $this->scripts;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAdminStyles()
-    {
-        return $this->adminStyles;
-    }
-
-    /**
-     * @return string
-     */
     public function getHeader()
     {
         return $this->header;
@@ -193,70 +147,6 @@ class Page
     public function getAdminMenu()
     {
         return $this->adminMenu;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param mixed $title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param mixed $description
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getKeywords()
-    {
-        return $this->keywords;
-    }
-
-    /**
-     * @param $keywords
-     */
-    public function setKeywords($keywords)
-    {
-        $this->keywords = $keywords;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    /**
-     * @param mixed $data
-     */
-    public function setData($data)
-    {
-        $this->data = $data;
     }
 
     /**

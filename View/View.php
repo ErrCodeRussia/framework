@@ -31,10 +31,7 @@ class View
         }
 
         $this->data = $dataArray;
-
         $this->data['page'] = $page;
-
-        $page->setData($this->data);
 
         ob_start();
         extract($this->data);
