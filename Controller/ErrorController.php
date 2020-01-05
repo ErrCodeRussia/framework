@@ -12,6 +12,7 @@ class ErrorController
     private $page;
 
     private $error404;
+    private $accessError;
 
     /**
      * ErrorController constructor.
@@ -23,10 +24,16 @@ class ErrorController
         $this->page = $page;
 
         $this->error404 = $errors['404'];
+        $this->accessError = $errors['access'];
     }
 
     public function error404()
     {
         $view = new View($this->error404, $this->page);
+    }
+
+    public function accessError()
+    {
+        $view = new View($this->accessError, $this->page);
     }
 }

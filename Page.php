@@ -3,7 +3,6 @@
 namespace base;
 
 use base\security\Security;
-use base\session\Session;
 
 class Page
 {
@@ -11,6 +10,16 @@ class Page
      * @var $api - переменная для проверки, нужно ли отрисовывать страничку (если сайт - API, то не нужно)
      */
     public $api = false;
+
+    /**
+     * @var $auth - переменная для проверки требуемости авторизации
+     */
+    public $auth;
+
+    /**
+     * @var $access - переменная для проверки доступа к странице
+     */
+    public $access;
 
     /**
      *  Контент в <head></head>
@@ -59,11 +68,6 @@ class Page
     private $post;
     private $files;
 
-    /**
-     * @var $session - экземпляр класса Session()
-     */
-    public $session;
-
     public function __construct()
     {
         if (!defined("LAYOUTS"))
@@ -82,8 +86,6 @@ class Page
             $this->post = Security::protectData($_POST);
         if (!empty($_FILES))
             $this->files = $_FILES;
-
-        $this->session = new Session();
     }
 
     public function generate()
@@ -187,5 +189,10 @@ class Page
     public function getFiles()
     {
         return $this->files;
+    }
+
+    public static function checkContent($file)
+    {
+        return file_get_contents(VIEWS . "layouts/body/{$file}.php");
     }
 }

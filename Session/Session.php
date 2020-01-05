@@ -31,6 +31,11 @@ class Session
     public $user;
 
     /**
+     * @var $prevPage - адрес предыдущей страницы, куда нужно будет сделать редирект после авторизации.
+     */
+    public $prevPage;
+
+    /**
      * @var $storage - хранилище данных сессии
      */
     private $storage;
@@ -65,6 +70,8 @@ class Session
         $this->user = new User();
 
         $this->storage = &$_SESSION;
+
+        $this->prevPage = &$_SESSION['base']['prevPage'];
     }
 
     /**

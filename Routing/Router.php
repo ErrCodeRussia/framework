@@ -17,6 +17,7 @@ class Router
     private $link;
     private $controller;
     private $action;
+    private $auth;
 
     public $path;
     public $countOfPath;
@@ -27,13 +28,15 @@ class Router
      * @param $link
      * @param $controller
      * @param $action
+     * @param bool $auth
      */
-    public function __construct($method, $link, $controller, $action)
+    public function __construct($method, $link, $controller, $action, $auth)
     {
         $this->method = $method;
         $this->link = $link;
         $this->controller = $controller;
         $this->action = $action;
+        $this->auth = $auth;
 
         $this->path = explode("/", $link);
         $this->countOfPath = count($this->path);
@@ -69,5 +72,13 @@ class Router
     public function getMethod()
     {
         return $this->method;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getAuth(): bool
+    {
+        return $this->auth;
     }
 }

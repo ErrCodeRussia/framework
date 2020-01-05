@@ -86,7 +86,7 @@ class User extends Model
     /**
      * @return mixed
      */
-    public function getAuth()
+    public function isAuth()
     {
         return $this->auth;
     }
@@ -193,5 +193,37 @@ class User extends Model
     public function setSurname($surname): void
     {
         $this->surname = $surname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * @param mixed $group
+     */
+    public function setGroup($group): void
+    {
+        $this->group = $group;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param mixed $role
+     */
+    public function setRole($role): void
+    {
+        $this->role = $role;
     }
 }

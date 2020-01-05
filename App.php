@@ -6,6 +6,7 @@ use base\config\Config;
 use base\controllers\ErrorController;
 use base\routing\Path;
 use base\routing\Routing;
+use base\session\Session;
 
 class App
 {
@@ -19,6 +20,14 @@ class App
      */
     public static $config;
 
+    /**
+     *  С помощью этой переменной можно обращаться к сессии и работать с ней.
+     */
+    public static $session;
+
+    /**
+     * @var $page Page;
+     */
     private $page;
     private $path;
     private $routing;
@@ -35,6 +44,7 @@ class App
     public function __construct($routing)
     {
         self::$config = new Config();
+        self::$session = new Session();
 
         $this->path = new Path();
         $this->routing = $routing;
@@ -71,20 +81,14 @@ class App
 
                 // проверяем полное совпадение пути
                 if ($this->path->getUrl() === $rule->getLink()) {
+                    $this->page->auth = $rule->getAuth();
+
                     $this->controllerName = $rule->getController();
                     $this->controller = new $this->controllerName($this->page, $this->params);
                     $this->action = $rule->getAction();
 
                     $controller = $this->controller;
-                    $action = $this->action;
-
-                    if (method_exists($this->controller, 'beforeAction'))
-                        $this->controller->beforeAction();
-                    $controller->$action();
-                    if (method_exists($this->controller, 'afterAction'))
-                        $this->controller->afterAction();
-
-                    break;
+                    $this->ControllerAction($this->controller, $this->action);
                 }
 
                 // проверяем количество элементов массива пути
@@ -109,19 +113,15 @@ class App
                 }
 
                 if ($temp) {
+                    $this->page->auth = $rule->getAuth();
+
                     $this->controllerName = $rule->getController();
                     $this->controller = new $this->controllerName($this->page, $this->params);
                     $this->action = $rule->getAction();
                 }
 
                 if (isset($this->controller) && isset($this->action)) {
-                    $action = $this->action;
-
-                    if (method_exists($this->controller, 'beforeAction'))
-                        $this->controller->beforeAction();
-                    $this->controller->$action();
-                    if (method_exists($this->controller, 'afterAction'))
-                        $this->controller->afterAction();
+                    $this->ControllerAction($this->controller, $this->action);
                 }
             }
         }
@@ -140,5 +140,23 @@ class App
     public function getPath()
     {
         return $this->path;
+    }
+
+    private function ControllerAction($controller, $action)
+    {
+        if (method_exists($controller, 'beforeAction'))
+            $controller->beforeAction();
+
+        if ($this->page->access === true || $this->page->access === null) {
+            $controller->$action();
+            if (method_exists($controller, 'afterAction'))
+                $controller->afterAction();
+        }
+        else {
+            $controller = new ErrorController($this->page, self::$config->errors);
+            $controller->accessError();
+
+            return;
+        }
     }
 }
