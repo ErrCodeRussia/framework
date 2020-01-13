@@ -3,6 +3,7 @@
 namespace base\database;
 
 use base\App;
+use base\config\Config;
 use \Exception;
 use PDO;
 use PDOException;
@@ -12,30 +13,30 @@ class Connection
 {
     public static function getConnection($dbname = null)
     {
-        $file = CONFIG . "config.php";
+        if (isset(App::$config)) {
+            App::$config = new Config();
+        }
 
-        if (file_exists($file)) {
-            if (is_null($dbname))
-                $database = App::$config->database['default'];
-            else
-                $database = App::$config->database[$dbname];
+        if (is_null($dbname))
+            $database = App::$config->database['default'];
+        else
+            $database = App::$config->database[$dbname];
 
-            try {
-                if (!is_null($database)) {
-                    $mysql['host'] = $database['host'];
-                    $mysql['user'] = $database['user'];
-                    $mysql['password'] = $database['password'];
-                    $mysql['database'] = $database['database'];
+        try {
+            if (!is_null($database)) {
+                $mysql['host'] = $database['host'];
+                $mysql['user'] = $database['user'];
+                $mysql['password'] = $database['password'];
+                $mysql['database'] = $database['database'];
 
-                    return self::getMysqliConnection($mysql);
-                }
-                else {
-                    throw new Exception("Ошибка при чтении настроек базы данных!");
-                }
+                return self::getMysqliConnection($mysql);
             }
-            catch (Exception $e) {
-                echo $e->getMessage();
+            else {
+                throw new Exception("Ошибка при чтении настроек базы данных!");
             }
+        }
+        catch (Exception $e) {
+            echo $e->getMessage();
         }
     }
 
