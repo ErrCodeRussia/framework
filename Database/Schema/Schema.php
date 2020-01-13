@@ -21,7 +21,9 @@ class Schema
         $table = new SchemaTable();
         self::$database = new Database();
 
-        self::$database->query(SchemaRequests::getCreateTableRequest($tableName, $params->call($table, $table)));
+        $columns = $params->call($table, $table)->getColumns();
+
+        var_dump(self::$database->exec(SchemaRequests::getCreateTableRequest($tableName, $columns)));
     }
 
     /**
@@ -47,7 +49,9 @@ class Schema
         $table = new SchemaTable();
         self::$database = new Database();
 
-        self::$database->query(SchemaRequests::getAddColumnRequest($tableName, $params->call($table, $table)));
+        $columns = $params->call($table, $table)->getColumns();
+
+        self::$database->query(SchemaRequests::getAddColumnRequest($tableName, $columns));
     }
 
     /**
@@ -62,7 +66,9 @@ class Schema
         $table = new SchemaTable();
         self::$database = new Database();
 
-        self::$database->query(SchemaRequests::getModifyColumnRequest($tableName, $params->call($table, $table)));
+        $columns = $params->call($table, $table)->getColumns();
+
+        self::$database->query(SchemaRequests::getModifyColumnRequest($tableName, $columns));
     }
 
     /**

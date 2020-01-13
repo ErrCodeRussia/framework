@@ -14,7 +14,7 @@ class SchemaRequests
      */
     public static function getCreateTableRequest(string $tableName, array $params)
     {
-        $request = "CREATE TABLE `$tableName` (";
+        $request = "CREATE TABLE IF NOT EXISTS `$tableName` (";
         $pk = array();
 
         $foreach = self::foreachInRequest($params);
@@ -129,13 +129,26 @@ class SchemaRequests
                 $request .= "$param `$columnName`";
 
             $type = 1;
+            $unsigned = 0;
+            $notNull = 0;
+
             foreach ($column as $key => $value) {
-                if ($type)
+                if ($type) {
                     if ($value)
                         $request .= " $key($value)";
                     else
                         $request .= " $key";
+                }
 
+                if ($key === 'not null' && $column['unsigned'] && !$type) {
+                    $request .= " unsigned $key";
+                    $notNull = 1;
+                    continue;
+                }
+
+                if ($notNull && $key === 'unsigned') {
+                    continue;
+                }
 
                 if ($key == 'primary key' && $value != null) {
                     $pk[] = $columnName;
