@@ -23,7 +23,7 @@ class Schema
 
         $columns = $params->call($table, $table)->getColumns();
 
-        var_dump(self::$database->exec(SchemaRequests::getCreateTableRequest($tableName, $columns)));
+        self::$database->exec(SchemaRequests::getCreateTableRequest($tableName, $columns));
     }
 
     /**
