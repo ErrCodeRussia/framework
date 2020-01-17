@@ -87,8 +87,9 @@ class App
                     $this->controller = new $this->controllerName($this->page, $this->params);
                     $this->action = $rule->getAction();
 
-                    $controller = $this->controller;
                     $this->ControllerAction($this->controller, $this->action);
+
+                    return;
                 }
 
                 // проверяем количество элементов массива пути
