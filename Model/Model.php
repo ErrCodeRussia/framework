@@ -22,7 +22,7 @@ class Model implements ModelInterface
                             break;
                         }
                         else {
-                            $this->status = ['status' => false, 'error' => $item];
+                            $this->status = ['validate' => false, 'error' => $item];
                             return $this->status;
                         }
                     case "email":
@@ -30,7 +30,7 @@ class Model implements ModelInterface
                             break;
                         }
                         else {
-                            $this->status = ['status' => false, 'error' => $item];
+                            $this->status = ['validate' => false, 'error' => $item];
                             return $this->status;
                         }
                     case "phone":
@@ -38,12 +38,12 @@ class Model implements ModelInterface
                             break;
                         }
                         else {
-                            $this->status = ['status' => false, 'error' => $item];
+                            $this->status = ['validate' => false, 'error' => $item];
                             return $this->status;
                         }
                     case "string":
                         if (ctype_digit($this->$field)) {
-                            $this->status = ['status' => false, 'error' => $item];
+                            $this->status = ['validate' => false, 'error' => $item];
                             return $this->status;
                         }
                         else {
@@ -53,7 +53,7 @@ class Model implements ModelInterface
             }
         }
 
-        return ['status' => true, 'error' => null];
+        return ['validate' => true, 'error' => null];
     }
 
     public function rules()
