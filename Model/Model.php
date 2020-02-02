@@ -9,6 +9,7 @@ use base\interfaces\ModelInterface;
 class Model implements ModelInterface
 {
     protected $status;
+    protected $auto_increment = [];
 
     public function validate()
     {
@@ -59,5 +60,10 @@ class Model implements ModelInterface
     public function rules()
     {
         return [];
+    }
+
+    public function getAutoIncrement(): array
+    {
+        return $this->auto_increment;
     }
 }

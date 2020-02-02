@@ -38,10 +38,14 @@ class Table implements TableInterface
     public function insert($object): int
     {
         $vars = get_object_vars($object);
+        $ai = $object->getAutoIncrement();
 
         $flag = 0;
         $tableFields = "";
         foreach ($vars as $key => $var) {
+            if ($this->checkAI($ai, $key)) {
+                continue;
+            }
             if ($flag) {
                 $tableFields .= ", `{$key}`";
             }
@@ -54,6 +58,9 @@ class Table implements TableInterface
         $flag = 0;
         $tableValues = "";
         foreach ($vars as $key => $var) {
+            if ($this->checkAI($ai, $key)) {
+                continue;
+            }
             if ($flag) {
                 $tableValues .= ", '{$var}'";
             }
@@ -254,6 +261,16 @@ class Table implements TableInterface
     public function query($sql) : PDOStatement
     {
         return $this->database->query($sql);
+    }
+
+    private function checkAI($ai, $param) : bool
+    {
+        foreach ($ai as $item) {
+            if ($item == $param)
+                return true;
+        }
+
+        return false;
     }
 
     /**
