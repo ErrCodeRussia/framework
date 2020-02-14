@@ -3,6 +3,8 @@
 namespace base\database;
 
 
+use base\security\Security;
+
 class Database
 {
     private $connection;
@@ -28,23 +30,30 @@ class Database
     /**
      *  Получение массива данных по соединению и SQL-запросу
      *
-     * @param $sql - запрос к базе даных
-     * @return array|null   - массив данных
+     * @param $sql              - запрос к базе даных
+     * @param bool|null $decode - флаг для декодирования строк
+     * @return array|null       - массив данных
      */
-    public function getQueryArray($sql)
+    public function getQueryArray($sql, $decode = null)
     {
         $res = array();
 
         if ($query = $this->connection->query($sql)) {
             $query->setFetchMode(\PDO::FETCH_ASSOC);
             while ($arr = $query->fetch()) {
-                $res[] = $arr;
+                if ($decode) {
+                    $res[] = Security::aps_decode($arr);
+                }
+                else {
+                    $res[] = $arr;
+                }
             }
 
             return $res;
         }
-        else
+        else {
             return null;
+        }
     }
 
     public function exec($sql)

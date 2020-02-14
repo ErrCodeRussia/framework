@@ -122,12 +122,12 @@ class Table implements TableInterface
     /**
      *  Получение выборки из базы данных
      *
-     *  @param array|string $select
+     * @param array|string $select
      *  Первым аргументом передаётся массив столбцов, которые необходимо вернуть.
      * Если требуются все столбцы, вместо массива передайте строку '*'.
      *
      *
-     *  @param array|null $where
+     * @param array|null $where
      *  Если нужно ограничить выборку каким-либо условием, используйте этот параметр.
      * Передать нужно массив вида ['column_name' => 'value', 'column_name' => 'value', ...].
      * По умолчанию несколько условий связываются оператором AND, то есть результат
@@ -137,14 +137,14 @@ class Table implements TableInterface
      * метод в классе вашей таблицы и обратитесь к методу fetchAll.
      *
      *
-     *  @param array|null $order_by
+     * @param array|null $order_by
      *  Для сортировки выборки передайте сюда массив вида ['column1', 'column2', ...].
      * Также здесь можно указать сортировку по убыванию. Для этого передайте такую запись:
      * [..., 'columnN desc', ...].
      *
      *
-     *  @param number|null $limit
-     *  @param number|null $offset
+     * @param number|null $limit
+     * @param number|null $offset
      *  LIMIT - количество возвращаемых записей. Например, если нужно получить
      * первые 10 записей.
      *  OFFSET - смещение относительно начала выборки. Для его использования
@@ -154,10 +154,14 @@ class Table implements TableInterface
      * с 6 по 15.
      *
      *
-     *  @return array
+     * @param bool|null $decode
+     *  В базе данных хранятся закодированные строки (замена кавычек и апострофа).
+     * Если вам нужно получить декодированные данные, установите этот параметр как true.
+     *
+     * @return array
      *  Возвращается массив массивов вида [0 => [], 1 => [], 2 => []].
      */
-    public function get($select, $where = null, $order_by = null, $limit = null, $offset = null): array
+    public function get($select, $where = null, $order_by = null, $limit = null, $offset = null, $decode = null): array
     {
         try {
             if ($select == '*') {
@@ -230,7 +234,7 @@ class Table implements TableInterface
 
         $sql = "SELECT {$columns} FROM {$this->tableName} {$whe} {$sort} {$lim} {$off}";
 
-        return $this->database->getQueryArray($sql);
+        return $this->database->getQueryArray($sql, $decode);
     }
 
     /**

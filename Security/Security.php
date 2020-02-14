@@ -28,15 +28,24 @@ class Security
         $protectData = array();
 
         foreach ($data as $key => $value) {
-            $protectData[$key] = self::replace_aps(htmlspecialchars(trim($value)));
+            $protectData[$key] = self::aps_encode(htmlspecialchars(trim($value)));
         }
 
         return $protectData;
     }
 
-    public static function replace_aps($string)
+    public static function aps_encode($string)
     {
-        $string = str_replace("'", "&aps", $string);
+        $string = htmlspecialchars($string, ENT_QUOTES);
+        $string = str_replace("`", "&#96;", $string);
+
+        return $string;
+    }
+
+    public static function aps_decode($string)
+    {
+        $string = htmlspecialchars_decode($string, ENT_QUOTES);
+        $string = str_replace("&#96;", "`", $string);
 
         return $string;
     }
