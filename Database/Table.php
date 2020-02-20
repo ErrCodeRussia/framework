@@ -248,7 +248,7 @@ class Table implements TableInterface
      * @param $sql      - строка SQL-запроса
      * @return int|bool - количество затронутых строк или true/false
      */
-    public function exec($sql) : int
+    protected function exec($sql) : int
     {
         return $this->database->exec($sql);
     }
@@ -262,7 +262,7 @@ class Table implements TableInterface
      * @param $sql - SQL-запрос
      * @return PDOStatement
      */
-    public function query($sql) : PDOStatement
+    protected function query($sql) : PDOStatement
     {
         return $this->database->query($sql);
     }

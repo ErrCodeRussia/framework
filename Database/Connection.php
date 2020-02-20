@@ -28,6 +28,7 @@ class Connection
                 $mysql['user'] = $database['user'];
                 $mysql['password'] = $database['password'];
                 $mysql['database'] = $database['database'];
+                $mysql['port'] = (isset($database['port'])) ? $database['port'] : null;
 
                 return self::getMysqliConnection($mysql);
             }
@@ -48,7 +49,13 @@ class Connection
     private static function getMysqliConnection(array $mysql)
     {
         try {
-            $connection = new PDO("mysql:host=" . $mysql['host'] . ";dbname=" . $mysql['database'], $mysql['user'], $mysql['password']);
+            $settings = "mysql:host=" . $mysql['host'];
+            if (!is_null($mysql['port'])) {
+                $settings .= ";port=" . $mysql['port'];
+            }
+            $settings .= ";dbname=" . $mysql['database'];
+
+            $connection = new PDO($settings, $mysql['user'], $mysql['password']);
             $connection->query("set NAMES utf8");
         }
         catch (PDOException $e) {
