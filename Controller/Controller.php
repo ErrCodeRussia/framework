@@ -13,35 +13,11 @@ class Controller implements ControllerInterface
     public $page;
     public $params;
 
-    public $access;
-
     public function beforeAction()
     {
-        if ($this->page->auth) {
-            if (!App::$session->user->isAuth()) {
-                $path = new Path();
-                App::$session->prevPage = $path->getUrl();
-                header("Location: " . App::$config->authUrl);
-            }
-        }
-
-        if (isset($this->access)) {
-            foreach ($this->access as $group => $roles) {
-                if ($group == App::$session->user->getGroup()) {
-                    foreach ($roles as $role) {
-                        if ($role == App::$session->user->getRole()) {
-                            $this->page->access = true;
-                        } else {
-                            continue;
-                        }
-                    }
-                } else {
-                    continue;
-                }
-            }
-
-            $this->page->access = false;
-        }
+        $this->checkAuth();
+        $this->checkAccess();
+        $this->checkCookieToken();
     }
 
     public function afterAction()
@@ -58,5 +34,26 @@ class Controller implements ControllerInterface
     {
         $this->page = $page;
         $this->params = $params;
+    }
+
+    protected function checkAuth()
+    {
+        if ($this->page->auth) {
+            if (!App::$session->user->isAuth()) {
+                $path = new Path();
+                App::$session->prevPage = $path->getUrl();
+                header("Location: " . App::$config->authUrl);
+            }
+        }
+    }
+
+    protected function checkAccess()
+    {
+        $this->page->access = true;
+    }
+
+    protected function checkCookieToken()
+    {
+
     }
 }
