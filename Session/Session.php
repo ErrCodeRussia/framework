@@ -154,15 +154,6 @@ class Session
     }
 
     /**
-     *  Устанавливаем более длительное значение жизни сессии. Можно использовать при авторизации пользователя, когда он
-     * устанавливает флаг "запомнить меня"
-     */
-    public function rememberMe()
-    {
-        ini_set('session.gc_maxlifetime', $this->rememberMe);
-    }
-
-    /**
      * @param $param
      * @return string|null
      */
