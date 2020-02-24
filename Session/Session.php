@@ -20,8 +20,8 @@ class Session
      * @var int $rememberMe - более продолжительное время жизни, которое может
      * использоваться при авторизации с использованием флага "запомнить меня"
      */
-    private $life = 86400;          // 1 день
-    private $rememberMe = 604800;   // 1 неделя
+    public $life = 86400;          // 1 день
+    public $rememberMe = 604800;   // 1 неделя
 
     /**
      *  @var $user User
