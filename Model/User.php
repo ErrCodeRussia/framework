@@ -16,7 +16,6 @@ class User extends Model
     private $name;
     private $surname;
 
-    private $group;
     private $role;
 
     private $storage;
@@ -193,22 +192,6 @@ class User extends Model
     public function setSurname($surname): void
     {
         $this->surname = $surname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getGroup()
-    {
-        return $this->group;
-    }
-
-    /**
-     * @param mixed $group
-     */
-    public function setGroup($group): void
-    {
-        $this->group = $group;
     }
 
     /**
