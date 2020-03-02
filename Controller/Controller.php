@@ -39,10 +39,12 @@ abstract class Controller implements ControllerInterface
     protected function checkAuth()
     {
         if ($this->page->auth) {
-            if (!App::$session->user->isAuth()) {
-                $path = new Path();
-                App::$session->prevPage = $path->getUrl();
-                header("Location: " . App::$config->authUrl);
+            if (!isset($_COOKIE['auth_token'])) {
+                if (empty($_COOKIE['auth_token']) || !App::$session->user->isAuth()) {
+                    $path = new Path();
+                    App::$session->prevPage = $path->getUrl();
+                    header("Location: " . App::$config->authUrl);
+                }
             }
         }
     }
