@@ -8,7 +8,7 @@ use base\Page;
 use base\routing\Path;
 
 
-class Controller implements ControllerInterface
+abstract class Controller implements ControllerInterface
 {
     public $page;
     public $params;
@@ -17,12 +17,12 @@ class Controller implements ControllerInterface
     {
         $this->checkAuth();
         $this->checkAccess();
-        $this->checkCookieToken();
+        $this->checkAuthToken();
     }
 
     public function afterAction()
     {
-
+        /** TODO: В разработке */
     }
 
     /**
@@ -52,8 +52,5 @@ class Controller implements ControllerInterface
         $this->page->access = true;
     }
 
-    protected function checkCookieToken()
-    {
-
-    }
+    protected abstract function checkAuthToken();
 }
