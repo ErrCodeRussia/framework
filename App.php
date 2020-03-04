@@ -133,6 +133,8 @@ class App
             if (isset($this->suitableRule)) {
                 /** @var Router $rule */
                 $rule = $this->suitableRule['rule'];
+                $this->params = $this->suitableRule['params'];
+
                 $this->page->auth = $rule->getAuth();
 
                 $this->controllerName = $rule->getController();
