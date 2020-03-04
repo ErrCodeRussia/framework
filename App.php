@@ -5,6 +5,7 @@ namespace base;
 use base\config\Config;
 use base\controllers\ErrorController;
 use base\routing\Path;
+use base\routing\Router;
 use base\routing\Routing;
 use base\session\Session;
 
@@ -32,6 +33,8 @@ class App
     private $path;
     private $routing;
     private $params;
+
+    private $suitableRule;
 
     private $controllerName;
     private $controller;
@@ -81,6 +84,7 @@ class App
 
                 // проверяем полное совпадение пути
                 if ($this->path->getUrl() === $rule->getLink()) {
+                    $this->params = [];
                     $this->page->auth = $rule->getAuth();
 
                     $this->controllerName = $rule->getController();
@@ -98,6 +102,7 @@ class App
                 }
 
                 $temp = 1;
+                $updateParams = false;
 
                 // сверяем элементы массива
                 foreach ($this->path->getPath() as $key => $item) {
@@ -106,6 +111,7 @@ class App
                         $rule->path[$key] = str_replace("{", "", $rule->path[$key]);
                         $rule->path[$key] = str_replace("}", "", $rule->path[$key]);
                         $this->params[$rule->path[$key]] = $this->path->getPath()[$key];
+                        $updateParams = true;
                     }
                     else if ($rule->path[$key] !== $this->path->getPath()[$key]) {
                         $temp = 0;
@@ -114,16 +120,28 @@ class App
                 }
 
                 if ($temp) {
-                    $this->page->auth = $rule->getAuth();
-
-                    $this->controllerName = $rule->getController();
-                    $this->controller = new $this->controllerName($this->page, $this->params);
-                    $this->action = $rule->getAction();
+                    $this->suitableRule['rule'] = $rule;
+                    if ($updateParams) {
+                        $this->suitableRule['params'] = $this->params;
+                    }
                 }
-
-                if (isset($this->controller) && isset($this->action)) {
-                    $this->ControllerAction($this->controller, $this->action);
+                else {
+                    $this->params = [];
                 }
+            }
+
+            if (isset($this->suitableRule)) {
+                /** @var Router $rule */
+                $rule = $this->suitableRule['rule'];
+                $this->page->auth = $rule->getAuth();
+
+                $this->controllerName = $rule->getController();
+                $this->controller = new $this->controllerName($this->page, $this->params);
+                $this->action = $rule->getAction();
+            }
+
+            if (isset($this->controller) && isset($this->action)) {
+                $this->ControllerAction($this->controller, $this->action);
             }
         }
 
