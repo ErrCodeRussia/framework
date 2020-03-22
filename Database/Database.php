@@ -41,8 +41,15 @@ class Database
         if ($query = $this->connection->query($sql)) {
             $query->setFetchMode(\PDO::FETCH_ASSOC);
             while ($arr = $query->fetch()) {
+
                 if ($decode) {
-                    $res[] = Security::aps_decode($arr);
+
+                    $array = array();
+                    foreach ($arr as $key => $item) {
+                        $array[$key] = Security::aps_decode($item);
+                    }
+
+                    $res[] = $array;
                 }
                 else {
                     $res[] = $arr;
