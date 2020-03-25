@@ -254,7 +254,7 @@ class Table implements TableInterface
      * @param $sql      - строка SQL-запроса
      * @return int|bool - количество затронутых строк или true/false
      */
-    protected function exec($sql) : int
+    public function exec($sql) : int
     {
         return $this->database->exec($sql);
     }
@@ -268,7 +268,7 @@ class Table implements TableInterface
      * @param $sql - SQL-запрос
      * @return PDOStatement
      */
-    protected function query($sql) : PDOStatement
+    public function query($sql) : PDOStatement
     {
         return $this->database->query($sql);
     }
@@ -280,7 +280,7 @@ class Table implements TableInterface
      * @param null $decode
      * @return array|null
      */
-    protected function getQueryArray($sql, $decode = null)
+    public function getQueryArray($sql, $decode = null)
     {
         return $this->database->getQueryArray($sql, $decode = null);
     }
@@ -288,7 +288,7 @@ class Table implements TableInterface
     /**
      *  Возвращает ID последней записи.
      */
-    protected function getInsertId()
+    public function getInsertId()
     {
         return $this->database->getInsertId();
     }
@@ -296,7 +296,7 @@ class Table implements TableInterface
     /**
      *  Начинает транзакцию
      */
-    protected function beginTransaction()
+    public function beginTransaction()
     {
         return $this->database->beginTransaction();
     }
@@ -304,7 +304,7 @@ class Table implements TableInterface
     /**
      *  Фиксирует изменения транзакции
      */
-    protected function commit()
+    public function commit()
     {
         return $this->database->commit();
     }
@@ -312,7 +312,7 @@ class Table implements TableInterface
     /**
      *  Откатывает изменения транзакции
      */
-    protected function rollBack()
+    public function rollBack()
     {
         return $this->database->rollBack();
     }
