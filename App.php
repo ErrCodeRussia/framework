@@ -4,6 +4,7 @@ namespace base;
 
 use base\config\Config;
 use base\controllers\ErrorController;
+use base\database\Database;
 use base\routing\Path;
 use base\routing\Router;
 use base\routing\Routing;
@@ -25,6 +26,13 @@ class App
      *  С помощью этой переменной можно обращаться к сессии и работать с ней.
      */
     public static $session;
+
+    /**
+     *  @var Database[]
+     *
+     *  В этой переменной хранится массив активных подключений к базе данных.
+     */
+    public static $database;
 
     /**
      * @var $page Page;

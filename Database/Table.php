@@ -3,6 +3,7 @@
 
 namespace base\database;
 
+use base\App;
 use base\exceptions\database\OffsetException;
 use base\exceptions\database\SelectArrayException;
 use base\exceptions\database\SelectException;
@@ -13,14 +14,19 @@ use PDOStatement;
 class Table implements TableInterface
 {
     public $tableName;
-    public $database;
+    private $database;
 
     /**
      * Table constructor.
+     * @param string $dbname
      */
-    public function __construct()
+    public function __construct($dbname = "default")
     {
-        $this->database = new Database();
+        if (!isset(App::$database[$dbname])) {
+            App::$database[$dbname] = new Database($dbname);
+        }
+
+        $this->database = App::$database[$dbname];
     }
 
 
@@ -265,6 +271,50 @@ class Table implements TableInterface
     protected function query($sql) : PDOStatement
     {
         return $this->database->query($sql);
+    }
+
+    /**
+     *  Запрос к базе данных, результатом которого будет массив.
+     *
+     * @param $sql
+     * @param null $decode
+     * @return array|null
+     */
+    protected function getQueryArray($sql, $decode = null)
+    {
+        return $this->database->getQueryArray($sql, $decode = null);
+    }
+
+    /**
+     *  Возвращает ID последней записи.
+     */
+    protected function getInsertId()
+    {
+        return $this->database->getInsertId();
+    }
+
+    /**
+     *  Начинает транзакцию
+     */
+    protected function beginTransaction()
+    {
+        return $this->database->beginTransaction();
+    }
+
+    /**
+     *  Фиксирует изменения транзакции
+     */
+    protected function commit()
+    {
+        return $this->database->commit();
+    }
+
+    /**
+     *  Откатывает изменения транзакции
+     */
+    protected function rollBack()
+    {
+        return $this->database->rollBack();
     }
 
     private function checkAI($ai, $param) : bool

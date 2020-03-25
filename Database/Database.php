@@ -11,11 +11,11 @@ class Database
 
     /**
      *  Database constructor.
-     * @param string|null $database
+     * @param string $dbname
      */
-    public function __construct($database = null)
+    public function __construct($dbname)
     {
-        $this->connection = Connection::getConnection($database);
+        $this->connection = Connection::getConnection($dbname);
     }
 
     /**
@@ -79,5 +79,20 @@ class Database
     public function getInsertId()
     {
         return $this->connection->lastInsertId();
+    }
+
+    public function beginTransaction()
+    {
+        return $this->connection->beginTransaction();
+    }
+
+    public function commit()
+    {
+        return $this->connection->commit();
+    }
+
+    public function rollBack()
+    {
+        return $this->connection->rollBack();
     }
 }
