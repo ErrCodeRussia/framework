@@ -8,22 +8,22 @@ interface TableInterface
 {
     /**
      * @param $object // Any class which implements Model
-     * @return int
+     * @return int|array
      */
-    public function insert($object) : int;
+    public function insert($object);
 
     /**
      * @param $params
      * @param $where
-     * @return int
+     * @return int|array
      */
-    public function update($params, $where): int;
+    public function update($params, $where);
 
     /**
      * @param $where
-     * @return int
+     * @return int|array
      */
-    public function delete($where) : int;
+    public function delete($where);
 
     /**
      * @param array|string $select

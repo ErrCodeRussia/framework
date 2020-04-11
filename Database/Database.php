@@ -32,13 +32,15 @@ class Database
      *
      * @param $sql              - запрос к базе даных
      * @param bool|null $decode - флаг для декодирования строк
-     * @return array|null       - массив данных
+     * @return array            - массив данных или errorInfo
      */
     public function getQueryArray($sql, $decode = null)
     {
         $res = array();
 
-        if ($query = $this->connection->query($sql)) {
+        $query = $this->connection->query($sql);
+
+        if (!is_array($query)) {
             $query->setFetchMode(\PDO::FETCH_ASSOC);
             while ($arr = $query->fetch()) {
 
@@ -59,21 +61,33 @@ class Database
             return $res;
         }
         else {
-            return null;
+            return $query;
         }
     }
 
     public function exec($sql)
     {
-        return $this->connection->exec($sql);
+        $exec = $this->connection->exec($sql);
+
+        if ($exec) {
+            return $exec;
+        }
+        else {
+            return $this->connection->errorInfo();
+        }
     }
 
     public function query($sql)
     {
         $query = $this->connection->query($sql);
-        $query->setFetchMode(\PDO::FETCH_ASSOC);
 
-        return $query;
+        if ($query) {
+            $query->setFetchMode(\PDO::FETCH_ASSOC);
+            return $query;
+        }
+        else {
+            return $this->connection->errorInfo();
+        }
     }
 
     public function getInsertId()

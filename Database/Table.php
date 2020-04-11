@@ -39,9 +39,11 @@ class Table implements TableInterface
      * передаётся объект с заполненными свойствами (то есть на каждое свойство есть
      * своё значение).
      *
-     * @return int
+     *  В случае ошибки возвращает массив errorInfo.
+     *
+     * @return int|array
      */
-    public function insert($object): int
+    public function insert($object)
     {
         $vars = get_object_vars($object);
         $ai = $object->getAutoIncrement();
@@ -90,11 +92,12 @@ class Table implements TableInterface
      *  Столбцы и новые значения, которые нужно установить. Сюда передаётся
      * массив вида ['column' => 'value']
      *
+     *  В случае ошибки возвращает массив errorInfo.
      *
      *  @param array|string $where
-     *  @return int
+     *  @return int|array
      */
-    public function update($params, $where): int
+    public function update($params, $where)
     {
         $columns = '';
         foreach ($params as $column => $value) {
@@ -112,11 +115,14 @@ class Table implements TableInterface
     }
 
     /**
+     *  Удаление данных по нескольким условиям.
+     *
+     *  В случае ошибки возвращает массив errorInfo.
      *
      * @param $where
-     * @return int
+     * @return int|array
      */
-    public function delete($where): int
+    public function delete($where)
     {
         $sql = "DELETE FROM {$this->tableName} ";
 
@@ -165,7 +171,8 @@ class Table implements TableInterface
      * Если вам нужно получить декодированные данные, установите этот параметр как true.
      *
      * @return array
-     *  Возвращается массив массивов вида [0 => [], 1 => [], 2 => []].
+     *  Возвращается массив массивов вида [0 => [], 1 => [], 2 => []],
+     * либо массив errorInfo.
      */
     public function get($select, $where = null, $order_by = null, $limit = null, $offset = null, $decode = null): array
     {
