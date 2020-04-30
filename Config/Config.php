@@ -78,11 +78,18 @@ class Config
      */
     public $errors;
 
+    /**
+     *  Хранит конфигурацию для Digital Signature Algorithm, которая используется
+     * при создании ключей шифрования.
+     */
+    public $DSA;
+
     public function __construct()
     {
         try {
-            if (!defined("CONFIG"))
+            if (!defined("CONFIG")) {
                 throw new ConfigException();
+            }
         }
         catch (ConfigException $e) {
             echo $e->getMessage();
@@ -92,8 +99,9 @@ class Config
         $this->filePath = file_exists(CONFIG . "config.php") ? CONFIG . "config.php" : null;
 
         try {
-            if (!isset($this->filePath))
+            if (!isset($this->filePath)) {
                 throw new ConfigFileException();
+            }
         }
         catch (ConfigFileException $e) {
             echo $e->getMessage();
@@ -108,13 +116,15 @@ class Config
     {
         try {
             foreach ($this->config as $key => $value) {
-                if (!property_exists((string)__NAMESPACE__ . "\Config", $key))
+                if (!property_exists((string)__NAMESPACE__ . "\Config", $key)) {
                     throw new ConfigKeyException($key);
+                }
 
                 $this->$key = $value;
 
-                if (!isset($this->$key))
+                if (!isset($this->$key)) {
                     throw new ConfigValuesException($key, $value);
+                }
             }
         }
         catch (ConfigKeyException $e) {
