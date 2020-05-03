@@ -261,7 +261,7 @@ class Table implements TableInterface
      * @param $sql      - строка SQL-запроса
      * @return int|bool - количество затронутых строк или true/false
      */
-    public function exec($sql) : int
+    public function exec($sql)
     {
         return $this->database->exec($sql);
     }
