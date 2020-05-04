@@ -69,7 +69,7 @@ class Database
     {
         $exec = $this->connection->exec($sql);
 
-        if ($exec) {
+        if ($exec !== false) {
             return $exec;
         }
         else {
