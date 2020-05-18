@@ -4,9 +4,9 @@
 namespace base\exceptions\database;
 
 
-use Exception;
+use base\exceptions\BaseException;
 
-class WrongValueException extends Exception
+class WrongValueException extends BaseException
 {
     public function __construct($value)
     {

@@ -4,9 +4,9 @@
 namespace base\exceptions\config;
 
 
-use Exception;
+use base\exceptions\BaseException;
 
-class ConfigKeyException extends Exception
+class ConfigKeyException extends BaseException
 {
     public function __construct($key)
     {

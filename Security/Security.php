@@ -28,7 +28,7 @@ class Security
         $protectData = array();
 
         foreach ($data as $key => $value) {
-            $protectData[$key] = self::aps_encode(htmlspecialchars(trim($value)));
+            $protectData[$key] = self::aps_encode(trim($value));
         }
 
         return $protectData;

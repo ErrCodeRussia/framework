@@ -4,6 +4,8 @@ namespace base\database;
 
 use base\App;
 use base\config\Config;
+use base\exceptions\BaseException;
+use base\exceptions\database\ConnectionException;
 use \Exception;
 use PDO;
 use PDOException;
@@ -33,11 +35,11 @@ class Connection
                 return self::getMysqliConnection($mysql);
             }
             else {
-                throw new Exception("Ошибка при чтении настроек базы данных!");
+                throw new ConnectionException("Ошибка при чтении настроек базы данных!");
             }
         }
-        catch (Exception $e) {
-            echo $e->getMessage();
+        catch (BaseException $e) {
+            echo $e->message();
         }
     }
 
@@ -59,7 +61,8 @@ class Connection
             $connection->query("set NAMES utf8");
         }
         catch (PDOException $e) {
-            echo "Ошибка базы данных! [{$e->getCode()}]: {$e->getMessage()}";
+            $e = new ConnectionException("Ошибка базы данных! [{$e->getCode()}]: {$e->getMessage()}");
+            $e->message();
             die();
         }
 

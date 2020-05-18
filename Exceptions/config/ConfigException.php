@@ -4,10 +4,9 @@
 namespace base\exceptions\config;
 
 
-use Exception;
-use Throwable;
+use base\exceptions\BaseException;
 
-class ConfigException extends Exception
+class ConfigException extends BaseException
 {
     public function __construct()
     {

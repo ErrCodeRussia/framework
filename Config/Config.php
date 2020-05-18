@@ -2,6 +2,7 @@
 
 namespace base\config;
 
+use base\exceptions\BaseException;
 use base\exceptions\config\ConfigException;
 use base\exceptions\config\ConfigFileException;
 use base\exceptions\config\ConfigKeyException;
@@ -41,7 +42,19 @@ class Config
      * Это прописывается в config/routing.php. После успешной авторизации будет
      * произведено перенаправление на запрашиваемую ранее страницу.
      */
-    public $authUrl = "/auth/";
+    public $authUrl;
+
+    /**
+     * @var bool
+     *
+     *  Хранит информацию о работе с исключениями.
+     *
+     *  Если флаг установлен в true (базовое значение), то исключения будут
+     * выводиться на экран. Это полезно при разработке.
+     *  Если флаг установлен в false, то исключения не будут выводиться
+     * на экран, но будут логироваться в соответствующие файлы в папке logs.
+     */
+    public $exceptions;
 
     /**
      *  Хранит данные о БД в виде одномерного массива с ключами:
@@ -79,10 +92,31 @@ class Config
     public $errors;
 
     /**
+     * @var array
+     *
+     *  Хранит массив с расположением лог-файлов
+     */
+    public $logs;
+
+    /**
      *  Хранит конфигурацию для Digital Signature Algorithm, которая используется
      * при создании ключей шифрования.
      */
     public $DSA;
+
+    /**
+     *  Хранит конфигурацию для отправки почты через SMTP.
+     *
+     * @var array
+     */
+    public $mail;
+
+    /**
+     * @var array
+     *
+     * Хранит дополнительные переменные, которые не входят в описанный функционал
+     */
+    public $any;
 
     public function __construct()
     {
@@ -90,21 +124,15 @@ class Config
             if (!defined("CONFIG")) {
                 throw new ConfigException();
             }
-        }
-        catch (ConfigException $e) {
-            echo $e->getMessage();
-            die();
-        }
 
-        $this->filePath = file_exists(CONFIG . "config.php") ? CONFIG . "config.php" : null;
+            $this->filePath = file_exists(CONFIG . "config.php") ? CONFIG . "config.php" : null;
 
-        try {
             if (!isset($this->filePath)) {
                 throw new ConfigFileException();
             }
         }
-        catch (ConfigFileException $e) {
-            echo $e->getMessage();
+        catch (BaseException $e) {
+            echo $e->message();
             die();
         }
 
@@ -127,12 +155,8 @@ class Config
                 }
             }
         }
-        catch (ConfigKeyException $e) {
-            echo $e->getMessage();
-            die();
-        }
-        catch (ConfigValuesException $e) {
-            echo $e->getMessage();
+        catch (BaseException $e) {
+            echo $e->message();
             die();
         }
     }

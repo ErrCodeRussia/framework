@@ -14,12 +14,13 @@ class Schema
      *  Создание таблицы в существующей базе данных
      *
      * @param string $tableName - название таблицы
+     * @param string $dbname
      * @param Closure $params - результат выполнения анонимной функции вида function(Table $table) { ... return $table->getColumns(); }
      */
-    public static function createTable(string $tableName, Closure $params)
+    public static function createTable(string $tableName, Closure $params, $dbname = 'default')
     {
         $table = new SchemaTable();
-        self::$database = new Database();
+        self::$database = new Database($dbname);
 
         $columns = $params->call($table, $table)->getColumns();
 
@@ -30,10 +31,11 @@ class Schema
      *  Удаление таблицы, если таковая существует
      *
      * @param string $tableName - название таблицы
+     * @param string $dbname
      */
-    public static function dropTableIfExist(string $tableName)
+    public static function dropTableIfExist(string $tableName, $dbname = 'default')
     {
-        self::$database = new Database();
+        self::$database = new Database($dbname);
 
         self::$database->query(SchemaRequests::getDropTableRequest($tableName));
     }
@@ -42,12 +44,13 @@ class Schema
      *  Добавление колонки в существующую таблицы
      *
      * @param string $tableName - название таблицы
+     * @param string $dbname
      * @param Closure $params - результат выполнения анонимной функции вида function(Table $table) { ... return $table->getColumns(); }
      */
-    public static function addColumn(string $tableName, Closure $params)
+    public static function addColumn(string $tableName, Closure $params, $dbname = 'default')
     {
         $table = new SchemaTable();
-        self::$database = new Database();
+        self::$database = new Database($dbname);
 
         $columns = $params->call($table, $table)->getColumns();
 
@@ -58,13 +61,13 @@ class Schema
      *  Изменение существующей таблицы
      *
      * @param string $tableName - название таблицы
-     * @param Closure $params   - результат выполнения анонимной функции вида function(Table $table) { ... return $table->getColumns(); }
-     * @param null $connection  - соединение с базой данных
+     * @param Closure $params - результат выполнения анонимной функции вида function(Table $table) { ... return $table->getColumns(); }
+     * @param string $dbname
      */
-    public static function modifyColumn(string $tableName, Closure $params, $connection = null)
+    public static function modifyColumn(string $tableName, Closure $params, $dbname = 'default')
     {
         $table = new SchemaTable();
-        self::$database = new Database();
+        self::$database = new Database($dbname);
 
         $columns = $params->call($table, $table)->getColumns();
 
@@ -76,10 +79,11 @@ class Schema
      *
      * @param string $tableName - название таблицы
      * @param array $columns - массив названий колонок, которые нужно удалить
+     * @param string $dbname
      */
-    public static function dropColumn(string $tableName, array $columns)
+    public static function dropColumn(string $tableName, array $columns, $dbname = 'default')
     {
-        self::$database = new Database();
+        self::$database = new Database($dbname);
 
         foreach ($columns as $column) {
             self::$database->query(SchemaRequests::getCreateTableRequest($tableName, $column));
@@ -92,10 +96,11 @@ class Schema
      * @param string $tableName - название таблицы
      * @param string $columnName - название колонки
      * @param $value - значение по умолчанию
+     * @param string $dbname
      */
-    public static function setDefaultValue(string $tableName, string $columnName, $value)
+    public static function setDefaultValue(string $tableName, string $columnName, $value, $dbname = 'default')
     {
-        self::$database = new Database();
+        self::$database = new Database($dbname);
 
         self::$database->query(SchemaRequests::getDefaultValueRequest($tableName, $columnName, $value));
     }

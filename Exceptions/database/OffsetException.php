@@ -4,10 +4,9 @@
 namespace base\exceptions\database;
 
 
-use Exception;
-use Throwable;
+use base\exceptions\BaseException;
 
-class OffsetException extends Exception
+class OffsetException extends BaseException
 {
     public function __construct()
     {

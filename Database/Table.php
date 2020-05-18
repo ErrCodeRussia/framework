@@ -390,7 +390,7 @@ class Table implements TableInterface
             return true;
         }
         catch (WrongValueException $e) {
-            echo $e->getMessage();
+            echo $e->message();
             die();
         }
     }
@@ -414,7 +414,7 @@ class Table implements TableInterface
                     throw new SelectArrayException();
                 }
             } catch (SelectArrayException $e) {
-                echo $e->getMessage();
+                echo $e->message();
                 die();
             }
 
@@ -431,7 +431,7 @@ class Table implements TableInterface
                 throw new SelectException();
             }
             catch (SelectException $e) {
-                echo $e->getMessage();
+                echo $e->message();
                 die();
             }
         }

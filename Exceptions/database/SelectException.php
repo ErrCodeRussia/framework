@@ -4,9 +4,9 @@
 namespace base\exceptions\database;
 
 
-use Exception;
+use base\exceptions\BaseException;
 
-class SelectException extends Exception
+class SelectException extends BaseException
 {
     public function __construct()
     {

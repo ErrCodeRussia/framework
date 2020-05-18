@@ -70,8 +70,9 @@ class Curl
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->postdata);
         curl_setopt($this->curl, CURLOPT_HEADER, $this->header);
 
-        if ($this->is_delete)
+        if ($this->is_delete) {
             curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+        }
 
         return curl_exec($this->curl);
     }

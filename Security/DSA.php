@@ -5,6 +5,7 @@ namespace base\security;
 
 
 use base\App;
+use base\exceptions\BaseException;
 use base\exceptions\config\ConfigValuesException;
 
 /**
@@ -50,8 +51,8 @@ class DSA
                 throw new ConfigValuesException("DSA", "array");
             }
         }
-        catch (\Exception $e) {
-            echo $e->getMessage();
+        catch (BaseException $e) {
+            echo $e->message();
             die();
         }
 
