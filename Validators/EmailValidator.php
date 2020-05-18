@@ -1,7 +1,7 @@
 <?php
 
 
-namespace base\Validators;
+namespace base\validators;
 
 
 class EmailValidator

@@ -1,13 +1,13 @@
 <?php
 
 
-namespace base\Validators;
+namespace base\validators;
 
 
 class Validator
 {
     private $validators = [
-        'email' => 'base\Validators\EmailValidator'
+        'email' => 'base\validators\EmailValidator'
     ];
 
     public function email($value)
