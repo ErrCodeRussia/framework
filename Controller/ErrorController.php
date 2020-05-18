@@ -30,13 +30,15 @@ class ErrorController
 
     public function error404()
     {
-        if (!$this->page->api)
-            $view = new View($this->error404, $this->page);
+        if ($this->page->generate) {
+            new View($this->error404, $this->page);
+        }
     }
 
     public function accessError()
     {
-        if (!$this->page->api)
-            $view = new View($this->accessError, $this->page);
+        if (!$this->page->generate) {
+            new View($this->accessError, $this->page);
+        }
     }
 }
