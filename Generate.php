@@ -15,7 +15,7 @@ class Generate
      */
     public function __construct($page)
     {
-        if ($page->api === false) {
+        if ($page->generate === true) {
             $file = LAYOUTS . "main.php";
 
             if (file_exists($file)) {
