@@ -62,7 +62,7 @@ class Session
     {
         $this->setBaseSettings();
 
-        session_start();
+        session_start(['cookie_secure' => true]);
 
         $this->id = session_id();
         $this->name = session_name();

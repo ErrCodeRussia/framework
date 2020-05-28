@@ -28,7 +28,14 @@ class Security
         $protectData = array();
 
         foreach ($data as $key => $value) {
-            $protectData[$key] = self::aps_encode(trim($value));
+            if (is_array($value)) {
+                foreach ($value as $valueKey => $item) {
+                    $protectData[$key][$valueKey] = self::aps_encode(trim($item));
+                }
+            }
+            else {
+                $protectData[$key] = self::aps_encode(trim($value));
+            }
         }
 
         return $protectData;
